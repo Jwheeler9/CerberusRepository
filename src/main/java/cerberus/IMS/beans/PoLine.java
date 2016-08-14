@@ -1,5 +1,9 @@
 package cerberus.IMS.beans;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="PO_LINE")
 public class PoLine 
 {
 	private int order_number;

@@ -1,13 +1,31 @@
 package cerberus.IMS.beans;
+import javax.persistence.*;
 
+@Entity
+@Table(name="IMS_ADDRESS")
 public class Address {
 
+	@Id
+	@Column(name="STUDENT_ID")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="addressSequence")
+	@SequenceGenerator(name="addressSequence",sequenceName="ADDRESS_SEQUENCE",initialValue=1,allocationSize=1)
 	private int imsAddressId;
+	
+	@Column(name="STREET_ADDRESS_1")
 	private String streetAddress1;
+	@Column(name="STREET_ADDRESS_2")
 	private String streetAddress2;
+	@Column(name="ADDRESS_CITY")
 	private String addressCity;
-	private int stateId;
+
+	@ManyToOne
+	@JoinColumn(name="ABBRV_ID")
+	private StateAbbrv state;
+	@Column(name="ADDRESS_ZIP")
 	private String addressZip;
+
+	private int stateId;
+	
 	
 	public Address() {
 		super();
