@@ -1,18 +1,55 @@
 package cerberus.IMS.beans;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-
+@Entity
+@Table(name="IMS_CLIENT")
 public class Client {
 	
+	//----------------------------------
+	// Attributes
+	@Id
+	@Column(name="IMS_CLIENT_ID")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="clientSeq")
+	@SequenceGenerator(name="clientSeq", sequenceName="IMS_CLIENT_SEQ", initialValue=1, allocationSize=1)
 	private int imsClientId;
-	private String clientName;
-	private String clientEmail;
-	private String pointOfContactName;
-	private String clientPhone;
-	private String clientFax;
-	private int addressId;
-	private int clientTypeId;
 	
+	@Column(name="CLIENT_NAME")
+	private String clientName;
+	
+	@Column(name="CLIENT_EMAIL")
+	private String clientEmail;
+	
+	@Column(name="POINT_OF_CONTACT_NAME")
+	private String pointOfContactName;
+	
+	@Column(name="CLIENT_PHONE")
+	private String clientPhone;
+	
+	@Column(name="CLIENT_FAX")
+	private String clientFax;
+
+	//----------------------------------
+	// Realationship Mapping
+	@OneToOne
+	@JoinColumn(name="CLIENT_ADDRESS")
+	private Address clientAddress;
+	
+	@ManyToOne
+	@JoinColumn(name="CLIENT_TYPE")
+	private ClientType clientType;
+
+	//----------------------------------
+	// Accessors
 	public int getImsClientId() {
 		return imsClientId;
 	}
@@ -49,24 +86,25 @@ public class Client {
 	public void setClientFax(String clientFax) {
 		this.clientFax = clientFax;
 	}
-	public int getAddressId() {
-		return addressId;
+	public Address getClientAddress() {
+		return clientAddress;
 	}
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
+	public void setClientAddress(Address clientAddress) {
+		this.clientAddress = clientAddress;
 	}
-	public int getClientTypeId() {
-		return clientTypeId;
+	public ClientType getClientType() {
+		return clientType;
 	}
-	public void setClientTypeId(int clientTypeId) {
-		this.clientTypeId = clientTypeId;
+	public void setClientType(ClientType clientType) {
+		this.clientType = clientType;
 	}
-	
+	//----------------------------------
+	// Constructors
 	public Client(){
 		super();
 	}
 	public Client(int imsClientId, String clientName, String clientEmail, String pointOfContactName, String clientPhone,
-			String clientFax, int addressId, int clientTypeId) {
+			String clientFax, Address clientAddress, ClientType clientType) {
 		this();
 		this.imsClientId = imsClientId;
 		this.clientName = clientName;
@@ -74,7 +112,7 @@ public class Client {
 		this.pointOfContactName = pointOfContactName;
 		this.clientPhone = clientPhone;
 		this.clientFax = clientFax;
-		this.addressId = addressId;
-		this.clientTypeId = clientTypeId;
+		this.clientAddress = clientAddress;
+		this.clientType = clientType;
 	}
 }
