@@ -1,40 +1,62 @@
 package cerberus.IMS.beans;
 
-import java.math.BigDecimal;
 import java.sql.Blob;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="IMS_PRODUCT")
 public class Product 
 {
+	//----------------------------------
+	// Attributes
+	@Id
+	@Column(name="PRODUCT_UPC", nullable=false, unique=true)
 	private int productUpc;
+	
+	@Column(name="PRODUCT_NAME", length=150, nullable=false)
 	private String productName;
+	
+	@Column(name="PRODUCT_DESCRIPTION", length=250, nullable=false)
 	private String productDescription;
+	
+	@Column(name="SHORT_NAME", length=5, nullable=false)
 	private String shortName;
+	
+	@Column(name="UNIT_COST", nullable=false)
 	private double unitCost;
+	
+	@Column(name="PACK_SIZE", length=10, nullable=false)
 	private String packSize;
+	
+	@Column(name="REORDER_QUANTITY", nullable=false)
 	private int reorderQuantity;
-	private BigDecimal retailPrice;
+	
+	@Column(name="RETAIL_PRICE", nullable=false)
+	private double retailPrice;
+	
+	@Column(name="PRODUCT_WEIGHT")
 	private double productWeight;
+	
+	@Column(name="PRODUCT_IMAGE")
 	private Blob productImage;
 	
-	public Product() {
-		super();
-	}
-
-	public Product(int productUpc, String productName, String productDescription, String shortName, double unitCost,
-			String packSize, int reorderQuantity, BigDecimal retailPrice, double productWeight, Blob productImage) {
-		super();
-		this.productUpc = productUpc;
-		this.productName = productName;
-		this.productDescription = productDescription;
-		this.shortName = shortName;
-		this.unitCost = unitCost;
-		this.packSize = packSize;
-		this.reorderQuantity = reorderQuantity;
-		this.retailPrice = retailPrice;
-		this.productWeight = productWeight;
-		this.productImage = productImage;
-	}
-
+	//----------------------------------
+	// Relationship Mapping
+	@OneToMany(mappedBy="compKey")
+	private Set<PoLine> poLines;
+	
+	@ManyToMany(mappedBy="products")
+	private Set<ProductCategory> productCategories;
+	
+	//----------------------------------
+	// Accessors
 	public int getProductUpc() {
 		return productUpc;
 	}
@@ -91,11 +113,11 @@ public class Product
 		this.reorderQuantity = reorderQuantity;
 	}
 
-	public BigDecimal getRetailPrice() {
+	public double getRetailPrice() {
 		return retailPrice;
 	}
 
-	public void setRetailPrice(BigDecimal retailPrice) {
+	public void setRetailPrice(double retailPrice) {
 		this.retailPrice = retailPrice;
 	}
 
@@ -112,6 +134,26 @@ public class Product
 	}
 
 	public void setProductImage(Blob productImage) {
+		this.productImage = productImage;
+	}
+
+	//----------------------------------
+	// Constructors
+	public Product() {
+		super();
+	}
+	public Product(int productUpc, String productName, String productDescription, String shortName, double unitCost,
+			String packSize, int reorderQuantity, double retailPrice, double productWeight, Blob productImage) {
+		this();
+		this.productUpc = productUpc;
+		this.productName = productName;
+		this.productDescription = productDescription;
+		this.shortName = shortName;
+		this.unitCost = unitCost;
+		this.packSize = packSize;
+		this.reorderQuantity = reorderQuantity;
+		this.retailPrice = retailPrice;
+		this.productWeight = productWeight;
 		this.productImage = productImage;
 	}
 }

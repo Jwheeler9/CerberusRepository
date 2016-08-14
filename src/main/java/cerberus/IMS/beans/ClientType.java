@@ -18,17 +18,17 @@ public class ClientType {
 	//----------------------------------
 	// Attributes
 	@Id
-	@Column(name="CLIENT_TYPE_ID")
+	@Column(name="CLIENT_TYPE_ID", nullable=false, unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="clientIdSeq")
 	@SequenceGenerator(name="clientIdSeq", sequenceName="CLIENT_ID_SEQ", initialValue=1, allocationSize=1)
 	private int clientTypeId;
 	
-	@Column(name="CLIENT_TYPE")
+	@Column(name="CLIENT_TYPE", nullable=false)
 	private int clientType;
 	
 	//----------------------------------
 	// Realationship Mapping
-	@OneToMany(mappedBy="clientType")
+	@OneToMany(mappedBy="clientTypeId")
 	private Set<Client> clients;
 	
 	//----------------------------------

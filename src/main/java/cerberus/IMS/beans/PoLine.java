@@ -1,46 +1,42 @@
 package cerberus.IMS.beans;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="PO_LINE")
+@Table(name="IMS_PO_LINE")
 public class PoLine 
 {
-	private int order_number;
-	private int line_number;
-	private int unitPrice;
-	private int quantityOrdered;
-	private int product_upc;
+	//----------------------------------
+	// Attributes
+	@EmbeddedId
+	private CompositeKey compKey;
 	
-	public PoLine() {
-		super();
-	}
-
-	public PoLine(int order_number, int line_number, int unitPrice, int quantityOrdered, int product_upc) {
-		super();
-		this.order_number = order_number;
-		this.line_number = line_number;
-		this.unitPrice = unitPrice;
-		this.quantityOrdered = quantityOrdered;
-		this.product_upc = product_upc;
-	}
-
-	public int getOrder_number() {
-		return order_number;
-	}
-
-	public void setOrder_number(int order_number) {
-		this.order_number = order_number;
-	}
-
-	public int getLine_number() {
-		return line_number;
-	}
-
-	public void setLine_number(int line_number) {
-		this.line_number = line_number;
-	}
-
+	@Column(name="UNIT_PRICE", nullable=false)
+	private int unitPrice;
+	
+	@Column(name="QUANTITY_ORDERED", nullable=false)
+	private int quantityOrdered;
+	
+	@Column(name="PRODUCT_UPC", nullable=false)
+	private int productUpc;
+	
+	//----------------------------------
+	// Relationship Mapping
+	@ManyToOne
+	@JoinColumn(name="PURCHASE_ORDER")
+	private PurchaseOrder purchaseOrder;
+	
+	@ManyToOne
+	@JoinColumn(name="PRODUCT")
+	private Product product;
+	
+	//----------------------------------
+	// Accessors
 	public int getUnitPrice() {
 		return unitPrice;
 	}
@@ -56,12 +52,24 @@ public class PoLine
 	public void setQuantityOrdered(int quantityOrdered) {
 		this.quantityOrdered = quantityOrdered;
 	}
-
-	public int getProduct_upc() {
-		return product_upc;
+	public int getProductUpc() {
+		return productUpc;
 	}
 
-	public void setProduct_upc(int product_upc) {
-		this.product_upc = product_upc;
+	public void setProductUpc(int productUpc) {
+		this.productUpc = productUpc;
+	}
+
+	//----------------------------------
+	// Constructors
+	public PoLine() {
+		super();
+	}
+	public PoLine(int unitPrice, int quantityOrdered, int productUpc) {
+		this();
+		this.unitPrice = unitPrice;
+		this.quantityOrdered = quantityOrdered;
+		this.productUpc = productUpc;
 	}
 }
+

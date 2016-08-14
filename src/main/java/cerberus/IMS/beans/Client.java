@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,25 +19,32 @@ public class Client {
 	//----------------------------------
 	// Attributes
 	@Id
-	@Column(name="IMS_CLIENT_ID")
+	@Column(name="IMS_CLIENT_ID", nullable=false, unique=true)
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="clientSeq")
 	@SequenceGenerator(name="clientSeq", sequenceName="IMS_CLIENT_SEQ", initialValue=1, allocationSize=1)
 	private int imsClientId;
 	
-	@Column(name="CLIENT_NAME")
+	@Column(name="CLIENT_NAME", length=100, nullable=false)
 	private String clientName;
 	
-	@Column(name="CLIENT_EMAIL")
+	@Column(name="CLIENT_EMAIL", length=250, nullable=false)
 	private String clientEmail;
 	
-	@Column(name="POINT_OF_CONTACT_NAME")
+	@Column(name="POINT_OF_CONTACT_NAME", length=250, nullable=false)
 	private String pointOfContactName;
 	
-	@Column(name="CLIENT_PHONE")
+	@Column(name="CLIENT_PHONE", length=15, nullable=false)
 	private String clientPhone;
 	
-	@Column(name="CLIENT_FAX")
+	@Column(name="CLIENT_FAX", length=15, nullable=false)
 	private String clientFax;
+	
+	@Column(name="ADDRESS_ID", nullable=false)
+	private int addressId;
+	
+	@Column(name="CLIENT_TYPE_ID", nullable=false)
+	private int clientTypeId;
+	
 
 	//----------------------------------
 	// Realationship Mapping
@@ -47,6 +55,9 @@ public class Client {
 	@ManyToOne
 	@JoinColumn(name="CLIENT_TYPE")
 	private ClientType clientType;
+	
+	@OneToMany(mappedBy="clientId")
+	private PurchaseOrder purchaseOrder;
 
 	//----------------------------------
 	// Accessors
@@ -86,6 +97,18 @@ public class Client {
 	public void setClientFax(String clientFax) {
 		this.clientFax = clientFax;
 	}
+	public int getAddressId() {
+		return addressId;
+	}
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
+	}
+	public int getClientTypeId() {
+		return clientTypeId;
+	}
+	public void setClientTypeId(int clientTypeId) {
+		this.clientTypeId = clientTypeId;
+	}
 	public Address getClientAddress() {
 		return clientAddress;
 	}
@@ -98,13 +121,14 @@ public class Client {
 	public void setClientType(ClientType clientType) {
 		this.clientType = clientType;
 	}
+	
 	//----------------------------------
 	// Constructors
 	public Client(){
 		super();
 	}
 	public Client(int imsClientId, String clientName, String clientEmail, String pointOfContactName, String clientPhone,
-			String clientFax, Address clientAddress, ClientType clientType) {
+			String clientFax, int addressId, int clientTypeId) {
 		this();
 		this.imsClientId = imsClientId;
 		this.clientName = clientName;
@@ -112,7 +136,7 @@ public class Client {
 		this.pointOfContactName = pointOfContactName;
 		this.clientPhone = clientPhone;
 		this.clientFax = clientFax;
-		this.clientAddress = clientAddress;
-		this.clientType = clientType;
+		this.addressId = addressId;
+		this.clientTypeId = clientTypeId;
 	}
 }

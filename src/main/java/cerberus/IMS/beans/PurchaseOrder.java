@@ -1,16 +1,55 @@
 package cerberus.IMS.beans;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name="IMS_PURCHASE_ORDER")
 public class PurchaseOrder {
 	
+	//----------------------------------
+	// Attributes
+	@Id
+	@Column(name="ORDER_NUMBER", nullable=false, unique=true)
 	private int orderNumber;
+
+	@Column(name="SUBTOTAL", nullable=false)
 	private int subtotal;
+
+	@Column(name="PURCHASE_DATE", nullable=false)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date purchaseDate;
+	
+	@Column(name="TAX_AMOUNT", nullable=false)
 	private int taxAmount;
+
+	@Column(name="PO_TOTAL", nullable=false)
 	private int poTotal;
+	
+	@Column(name="CLIENT_ID", nullable=false)
 	private int clientId;
 	
+	//----------------------------------
+	// Relationship Mapping
+	@ManyToOne
+	@JoinColumn(name="CLIENTS")
+	private Set<Client> clients;
+	
+	@OneToMany(mappedBy="orderNumber")
+	private Set<PoLine> poLines;
+	
+	//----------------------------------
+	// Accessors
 	public int getOrderNumber() {
 		return orderNumber;
 	}
@@ -48,6 +87,8 @@ public class PurchaseOrder {
 		this.clientId = clientId;
 	}
 	
+	//----------------------------------
+	// Constructors
 	public PurchaseOrder(){
 		super();
 	}

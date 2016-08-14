@@ -1,7 +1,5 @@
 package cerberus.IMS;
 
-import cerberus.IMS.beans.Client;
-
 /**
  * Hello world!
  *

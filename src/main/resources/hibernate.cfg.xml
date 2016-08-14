@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">
+			oracle.jdbc.OracleDriver
+		</property>
+		<property name="hibernate.connection.url">
+			jdbc:oracle:thin:@localhost:1521:xe
+		</property>
+		<property name="hibernate.connection.username">
+			Jwheeler
+		</property>
+		<property name="hibernate.connection.password">
+			jw5082059
+		</property>
+		<property name="hibernate.connection.pool_size">
+			20
+		</property>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.Oracle10gDialect
+		</property>
+		<property name="hibernate.hbm2ddl.auto">
+			update
+		</property>
+		<!--  ORM Resources -->
+		<mapping class="cerberus.IMS.beans.Address"/>
+		<mapping class="cerberus.IMS.beans.Client"/>
+		<mapping class="cerberus.IMS.beans.ClientType"/>
+		<mapping class="cerberus.IMS.beans.CompositeKey"/>
+		<mapping class="cerberus.IMS.beans.PoLine"/>
+		<mapping class="cerberus.IMS.beans.Product"/>
+		<mapping class="cerberus.IMS.beans.ProductCateogry"/>
+		<mapping class="cerberus.IMS.beans.PurchaseOrder"/>
+		<mapping class="cerberus.IMS.beans.StateAbbrv"/>
+		<!--  Cache -->
+		<property name="net.sf.ehcache.configurationResourceName">
+			/ehcache.xml
+		</property>
+		<property name="hibernate.cache.region.factory_class">
+			net.sf.ehcache.hibernate.EhCacheRegionFactory
+		</property>
+		<property name="hibernate.cache.use_second_level_cache">
+			true
+		</property>
+		<property name="hibernate.cache.use_query_cache">
+			true
+		</property>
+	</session-factory>
+</hibernate-configuration>
