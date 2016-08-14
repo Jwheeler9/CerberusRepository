@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="cerberus.IMS.beans.Client" table="Client">		
+		<id name="imsClientId" type="int">
+			<column name="IMS_CLIENT_ID"/>
+			<generator class="sequence"/> 
+		</id>
+		<property name="clientName" type="java.lang.String">
+			<column name="CLIENT_NAME"/>
+		</property>
+		<property name="clientEmail" type="java.lang.String">
+			<column name="CLIENT_EMAIL"/>
+		</property>
+		<property name="pointOfContactName" type="java.lang.String">
+			<column name="POINT_OF_CONTACT_NAME"/>
+		</property>
+		<property name="clientPhone" type="java.lang.String">
+			<column name="CLIENT_PHONE"/>
+		</property>
+		<property name="clientFax" type="java.lang.String">
+			<column name="CLIENT_FAX"/>
+		</property>
+		<property name="addressId" type="int">
+			<column name="ADDRESS_ID"/>
+		</property>
+		<property name="clientTypeId" type="int">
+			<column name="CLIENT_TYPE_ID"/>
+		</property>
+	</class>
+</hibernate-mapping>
