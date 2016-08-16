@@ -28,7 +28,7 @@
 	<bean name="ProductCategory" class="cerberus.IMS.beans.ProductCategory" autowire="byName">
 		
 	</bean>
-	<bean name="ProductCategory" class="cerberus.IMS.beans.ProductCategory" autowire="byName">
+	<bean name="PurchaseOrder" class="cerberus.IMS.beans.ProductCategory" autowire="byName">
 		
 	</bean>
 </beans>
