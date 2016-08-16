@@ -1,6 +1,8 @@
 package cerberus.IMS.beans;
 import javax.persistence.*;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 @Entity
 @Table(name="IMS_ADDRESS")
 public class Address {
@@ -29,6 +31,7 @@ public class Address {
 	// Realationship Mapping
 	@ManyToOne
 	@JoinColumn(name="STATE_ID")
+	@Autowired
 	private StateAbbrv state;
 	
 	//----------------------------------
@@ -77,4 +80,12 @@ public class Address {
 		this.addressCity = addressCity;
 		this.addressZip = addressZip;
 	}
+	public StateAbbrv getState() {
+		return state;
+	}
+	public void setState(StateAbbrv state) {
+		this.state = state;
+	}
+	
+	
 }
