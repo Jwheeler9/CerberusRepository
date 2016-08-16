@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -19,7 +18,7 @@ public class Client {
 	//----------------------------------
 	// Attributes
 	@Id
-	@Column(name="IMS_CLIENT_ID", nullable=false, unique=true)
+	@Column(name="IMS_CLIENT_ID")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="clientSeq")
 	@SequenceGenerator(name="clientSeq", sequenceName="IMS_CLIENT_SEQ", initialValue=1, allocationSize=1)
 	private int imsClientId;
@@ -38,26 +37,16 @@ public class Client {
 	
 	@Column(name="CLIENT_FAX", length=15, nullable=false)
 	private String clientFax;
-	
-	@Column(name="ADDRESS_ID", nullable=false)
-	private int addressId;
-	
-	@Column(name="CLIENT_TYPE_ID", nullable=false)
-	private int clientTypeId;
-	
 
 	//----------------------------------
 	// Realationship Mapping
 	@OneToOne
-	@JoinColumn(name="CLIENT_ADDRESS")
+	@JoinColumn(name="ADDRESS_ID")
 	private Address clientAddress;
 	
 	@ManyToOne
-	@JoinColumn(name="CLIENT_TYPE")
+	@JoinColumn(name="CLIENT_TYPE_ID")
 	private ClientType clientType;
-	
-	@OneToMany(mappedBy="clientId")
-	private PurchaseOrder purchaseOrder;
 
 	//----------------------------------
 	// Accessors
@@ -97,18 +86,6 @@ public class Client {
 	public void setClientFax(String clientFax) {
 		this.clientFax = clientFax;
 	}
-	public int getAddressId() {
-		return addressId;
-	}
-	public void setAddressId(int addressId) {
-		this.addressId = addressId;
-	}
-	public int getClientTypeId() {
-		return clientTypeId;
-	}
-	public void setClientTypeId(int clientTypeId) {
-		this.clientTypeId = clientTypeId;
-	}
 	public Address getClientAddress() {
 		return clientAddress;
 	}
@@ -128,7 +105,7 @@ public class Client {
 		super();
 	}
 	public Client(int imsClientId, String clientName, String clientEmail, String pointOfContactName, String clientPhone,
-			String clientFax, int addressId, int clientTypeId) {
+			String clientFax) {
 		this();
 		this.imsClientId = imsClientId;
 		this.clientName = clientName;
@@ -136,7 +113,5 @@ public class Client {
 		this.pointOfContactName = pointOfContactName;
 		this.clientPhone = clientPhone;
 		this.clientFax = clientFax;
-		this.addressId = addressId;
-		this.clientTypeId = clientTypeId;
 	}
 }

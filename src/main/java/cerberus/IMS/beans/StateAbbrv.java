@@ -1,7 +1,11 @@
 package cerberus.IMS.beans;
-import java.util.Set;
-
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="STATE_ABBRV")
@@ -20,11 +24,6 @@ public class StateAbbrv
 	
 	@Column(name="STATE_ABBRV")
 	private String stateAbbrv;
-	
-	//----------------------------------
-	// Realationship Mapping
-	@OneToMany(mappedBy="stateId")
-	private Set<Address> addresses;
 	
 	//----------------------------------
 	// Accessors

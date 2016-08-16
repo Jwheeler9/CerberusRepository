@@ -22,17 +22,10 @@ public class PoLine
 	@Column(name="QUANTITY_ORDERED", nullable=false)
 	private int quantityOrdered;
 	
-	@Column(name="PRODUCT_UPC", nullable=false)
-	private int productUpc;
-	
 	//----------------------------------
 	// Relationship Mapping
 	@ManyToOne
-	@JoinColumn(name="PURCHASE_ORDER")
-	private PurchaseOrder purchaseOrder;
-	
-	@ManyToOne
-	@JoinColumn(name="PRODUCT")
+	@JoinColumn(name="PRODUCT_UPC")
 	private Product product;
 	
 	//----------------------------------
@@ -52,13 +45,6 @@ public class PoLine
 	public void setQuantityOrdered(int quantityOrdered) {
 		this.quantityOrdered = quantityOrdered;
 	}
-	public int getProductUpc() {
-		return productUpc;
-	}
-
-	public void setProductUpc(int productUpc) {
-		this.productUpc = productUpc;
-	}
 
 	//----------------------------------
 	// Constructors
@@ -69,7 +55,6 @@ public class PoLine
 		this();
 		this.unitPrice = unitPrice;
 		this.quantityOrdered = quantityOrdered;
-		this.productUpc = productUpc;
 	}
 }
 

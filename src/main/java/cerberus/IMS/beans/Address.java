@@ -8,7 +8,7 @@ public class Address {
 	//----------------------------------
 	// Attributes
 	@Id
-	@Column(name="IMS_ADDRESS_ID", nullable=false, unique=true)
+	@Column(name="IMS_ADDRESS_ID")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="addressSequence")
 	@SequenceGenerator(name="addressSequence",sequenceName="ADDRESS_SEQUENCE",initialValue=1,allocationSize=1)
 	private int imsAddressId;
@@ -21,9 +21,6 @@ public class Address {
 	
 	@Column(name="ADDRESS_CITY", length=35, nullable=false)
 	private String addressCity;
-
-	@Column(name="STATE_ID", nullable=false)
-	private int stateId;
 	
 	@Column(name="ADDRESS_ZIP", length=10, nullable=false)
 	private String addressZip;
@@ -31,7 +28,7 @@ public class Address {
 	//----------------------------------
 	// Realationship Mapping
 	@ManyToOne
-	@JoinColumn(name="ABBRV_ID")
+	@JoinColumn(name="STATE_ID")
 	private StateAbbrv state;
 	
 	//----------------------------------
@@ -60,12 +57,6 @@ public class Address {
 	public void setAddressCity(String addressCity) {
 		this.addressCity = addressCity;
 	}
-	public int getStateId() {
-		return stateId;
-	}
-	public void setStateId(int stateId) {
-		this.stateId = stateId;
-	}
 	public String getAddressZip() {
 		return addressZip;
 	}
@@ -78,14 +69,12 @@ public class Address {
 	public Address() {
 		super();
 	}
-	public Address(int imsAddressId, String streetAddress1, String streetAddress2, String addressCity, int stateId,
-			String addressZip) {
+	public Address(int imsAddressId, String streetAddress1, String streetAddress2, String addressCity, String addressZip) {
 		this();
 		this.imsAddressId = imsAddressId;
 		this.streetAddress1 = streetAddress1;
 		this.streetAddress2 = streetAddress2;
 		this.addressCity = addressCity;
-		this.stateId = stateId;
 		this.addressZip = addressZip;
 	}
 }

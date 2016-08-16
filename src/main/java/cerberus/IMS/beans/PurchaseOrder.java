@@ -1,14 +1,12 @@
 package cerberus.IMS.beans;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,7 +18,7 @@ public class PurchaseOrder {
 	//----------------------------------
 	// Attributes
 	@Id
-	@Column(name="ORDER_NUMBER", nullable=false, unique=true)
+	@Column(name="ORDER_NUMBER")
 	private int orderNumber;
 
 	@Column(name="SUBTOTAL", nullable=false)
@@ -36,17 +34,11 @@ public class PurchaseOrder {
 	@Column(name="PO_TOTAL", nullable=false)
 	private int poTotal;
 	
-	@Column(name="CLIENT_ID", nullable=false)
-	private int clientId;
-	
 	//----------------------------------
 	// Relationship Mapping
 	@ManyToOne
-	@JoinColumn(name="CLIENTS")
-	private Set<Client> clients;
-	
-	@OneToMany(mappedBy="orderNumber")
-	private Set<PoLine> poLines;
+	@JoinColumn(name="CLIENT_ID")
+	private Client client;
 	
 	//----------------------------------
 	// Accessors
@@ -80,25 +72,18 @@ public class PurchaseOrder {
 	public void setPoTotal(int poTotal) {
 		this.poTotal = poTotal;
 	}
-	public int getClientId() {
-		return clientId;
-	}
-	public void setClientId(int clientId) {
-		this.clientId = clientId;
-	}
 	
 	//----------------------------------
 	// Constructors
 	public PurchaseOrder(){
 		super();
 	}
-	public PurchaseOrder(int orderNumber, int subtotal, Date purchaseDate, int taxAmount, int poTotal, int clientId) {
+	public PurchaseOrder(int orderNumber, int subtotal, Date purchaseDate, int taxAmount, int poTotal) {
 		this();
 		this.orderNumber = orderNumber;
 		this.subtotal = subtotal;
 		this.purchaseDate = purchaseDate;
 		this.taxAmount = taxAmount;
 		this.poTotal = poTotal;
-		this.clientId = clientId;
 	}
 }

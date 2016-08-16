@@ -17,7 +17,7 @@ public class ProductCategory {
 	//----------------------------------
 	// Attributes
 	@Id
-	@Column(name="CATEGORY_ID", nullable=false, unique=true)
+	@Column(name="CATEGORY_ID")
 	private int categoryId;
 	
 	@Column(name="CATEGORY_DESCRIPTION", length=50, nullable=false)

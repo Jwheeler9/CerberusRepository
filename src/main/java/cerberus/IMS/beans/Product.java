@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,7 +16,7 @@ public class Product
 	//----------------------------------
 	// Attributes
 	@Id
-	@Column(name="PRODUCT_UPC", nullable=false, unique=true)
+	@Column(name="PRODUCT_UPC")
 	private int productUpc;
 	
 	@Column(name="PRODUCT_NAME", length=150, nullable=false)
@@ -49,9 +48,6 @@ public class Product
 	
 	//----------------------------------
 	// Relationship Mapping
-	@OneToMany(mappedBy="compKey")
-	private Set<PoLine> poLines;
-	
 	@ManyToMany(mappedBy="products")
 	private Set<ProductCategory> productCategories;
 	
