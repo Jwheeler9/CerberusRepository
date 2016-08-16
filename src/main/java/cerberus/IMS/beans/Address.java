@@ -66,20 +66,6 @@ public class Address {
 	public void setAddressZip(String addressZip) {
 		this.addressZip = addressZip;
 	}
-	
-	//----------------------------------
-	// Constructors
-	public Address() {
-		super();
-	}
-	public Address(int imsAddressId, String streetAddress1, String streetAddress2, String addressCity, String addressZip) {
-		this();
-		this.imsAddressId = imsAddressId;
-		this.streetAddress1 = streetAddress1;
-		this.streetAddress2 = streetAddress2;
-		this.addressCity = addressCity;
-		this.addressZip = addressZip;
-	}
 	public StateAbbrv getState() {
 		return state;
 	}
@@ -87,5 +73,17 @@ public class Address {
 		this.state = state;
 	}
 	
-	
+	//----------------------------------
+	// Constructors
+	public Address() {
+		super();
+	}
+	public Address(String streetAddress1, String streetAddress2, String addressCity, String addressZip, StateAbbrv state) {
+		this();
+		this.streetAddress1 = streetAddress1;
+		this.streetAddress2 = streetAddress2;
+		this.addressCity = addressCity;
+		this.addressZip = addressZip;
+		this.state = state;
+	}
 }

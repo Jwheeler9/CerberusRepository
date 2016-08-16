@@ -51,9 +51,8 @@ public class StateAbbrv
 	public StateAbbrv() {
 		super();
 	}
-	public StateAbbrv(int abbrvId, String stateName, String stateAbbrv) {
+	public StateAbbrv(String stateName, String stateAbbrv) {
 		this();
-		this.abbrvId = abbrvId;
 		this.stateName = stateName;
 		this.stateAbbrv = stateAbbrv;
 	}

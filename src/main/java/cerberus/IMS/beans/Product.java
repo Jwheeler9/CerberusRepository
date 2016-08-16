@@ -5,8 +5,11 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +20,8 @@ public class Product
 	// Attributes
 	@Id
 	@Column(name="PRODUCT_UPC")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="productSequence")
+	@SequenceGenerator(name="productSequence",sequenceName="PRODUCT_SEQUENCE",initialValue=1,allocationSize=1)
 	private int productUpc;
 	
 	@Column(name="PRODUCT_NAME", length=150, nullable=false)
@@ -138,10 +143,9 @@ public class Product
 	public Product() {
 		super();
 	}
-	public Product(int productUpc, String productName, String productDescription, String shortName, double unitCost,
-			String packSize, int reorderQuantity, double retailPrice, double productWeight, Blob productImage) {
+	public Product(String productName, String productDescription, String shortName, double unitCost, String packSize, 
+				   int reorderQuantity, double retailPrice, double productWeight, Blob productImage) {
 		this();
-		this.productUpc = productUpc;
 		this.productName = productName;
 		this.productDescription = productDescription;
 		this.shortName = shortName;

@@ -1,12 +1,17 @@
 package cerberus.IMS.beans;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,6 +24,8 @@ public class PurchaseOrder {
 	// Attributes
 	@Id
 	@Column(name="ORDER_NUMBER")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="purchaseOrderSequence")
+	@SequenceGenerator(name="purchaseOrderSequence",sequenceName="PURCHASE_ORDER_SEQUENCE",initialValue=1,allocationSize=1)
 	private int orderNumber;
 
 	@Column(name="SUBTOTAL", nullable=false)
@@ -39,6 +46,9 @@ public class PurchaseOrder {
 	@ManyToOne
 	@JoinColumn(name="CLIENT_ID")
 	private Client client;
+	
+	@OneToMany(mappedBy="")
+	private Set<PoLine> lines;
 	
 	//----------------------------------
 	// Accessors
@@ -78,9 +88,8 @@ public class PurchaseOrder {
 	public PurchaseOrder(){
 		super();
 	}
-	public PurchaseOrder(int orderNumber, int subtotal, Date purchaseDate, int taxAmount, int poTotal) {
+	public PurchaseOrder(int subtotal, Date purchaseDate, int taxAmount, int poTotal) {
 		this();
-		this.orderNumber = orderNumber;
 		this.subtotal = subtotal;
 		this.purchaseDate = purchaseDate;
 		this.taxAmount = taxAmount;

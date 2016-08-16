@@ -20,8 +20,8 @@ public class ClientType {
 	@SequenceGenerator(name="clientIdSeq", sequenceName="CLIENT_ID_SEQ", initialValue=1, allocationSize=1)
 	private int clientTypeId;
 	
-	@Column(name="CLIENT_TYPE", nullable=false)
-	private int clientType;
+	@Column(name="CLIENT_TYPE", length=25, nullable=false)
+	private String clientType;
 		
 	//----------------------------------
 	// Accessors
@@ -31,10 +31,10 @@ public class ClientType {
 	public void setClientTypeId(int clientTypeId) {
 		this.clientTypeId = clientTypeId;
 	}
-	public int getClientType() {
+	public String getClientType() {
 		return clientType;
 	}
-	public void setClientType(int clientType) {
+	public void setClientType(String clientType) {
 		this.clientType = clientType;
 	}
 	
@@ -43,9 +43,8 @@ public class ClientType {
 	public ClientType(){
 		super();
 	}
-	public ClientType(int clientTypeId, int clientType) {
+	public ClientType(String clientType) {
 		this();
-		this.clientTypeId = clientTypeId;
 		this.clientType = clientType;
 	}
 }
