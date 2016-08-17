@@ -104,13 +104,15 @@ public class Client {
 	public Client(){
 		super();
 	}
-	public Client(String clientName, String clientEmail, String pointOfContactName, String clientPhone,
-			String clientFax) {
+	public Client(String clientName, String clientEmail, String pointOfContactName, String clientPhone, String clientFax, 
+				  Address clientAddress, ClientType clientType) {
 		this();
 		this.clientName = clientName;
 		this.clientEmail = clientEmail;
 		this.pointOfContactName = pointOfContactName;
 		this.clientPhone = clientPhone;
 		this.clientFax = clientFax;
+		this.clientAddress = clientAddress;
+		this.clientType = clientType;
 	}
 }

@@ -19,10 +19,10 @@ public class StateAbbrv
 	@SequenceGenerator(name="stateAbbrvSequence",sequenceName="STATE_ABBRV_SEQUENCE",initialValue=1,allocationSize=1)
 	private int abbrvId;
 	
-	@Column(name="STATE_NAME")
+	@Column(name="STATE_NAME", nullable=false)
 	private String stateName;
 	
-	@Column(name="STATE_ABBRV")
+	@Column(name="STATE_ABBRV", nullable=false)
 	private String stateAbbrv;
 	
 	//----------------------------------

@@ -5,7 +5,7 @@ import org.hibernate.Transaction;
 
 public class DataLayer {
 
-	private Session session; // Session-per-request (best practice)
+	private Session session;
 	private DAO dao;
 	
 	public DataLayer(){

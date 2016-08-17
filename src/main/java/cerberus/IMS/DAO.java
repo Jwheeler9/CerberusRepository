@@ -4,17 +4,22 @@ import org.hibernate.Session;
 
 public class DAO {
 	
-private Session session;
+	//----------------------------------
+	// Attributes
+	private Session session;
 
+	//----------------------------------
+	// Constructors
 	public DAO(){
 		super();
 	}
-
 	public DAO(Session _session){
 		this();
 		this.session = _session;
 	}
 	
+	//----------------------------------
+	// Methods
 	public void insert(Object _obj){
 		
 		session.save(_obj);

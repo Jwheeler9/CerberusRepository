@@ -1,6 +1,6 @@
 package cerberus.IMS.beans;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -29,17 +29,17 @@ public class PurchaseOrder {
 	private int orderNumber;
 
 	@Column(name="SUBTOTAL", nullable=false)
-	private int subtotal;
+	private double subtotal;
 
 	@Column(name="PURCHASE_DATE", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date purchaseDate;
+	private LocalDate purchaseDate;
 	
 	@Column(name="TAX_AMOUNT", nullable=false)
-	private int taxAmount;
+	private double taxAmount;
 
 	@Column(name="PO_TOTAL", nullable=false)
-	private int poTotal;
+	private double poTotal;
 	
 	//----------------------------------
 	// Relationship Mapping
@@ -47,7 +47,7 @@ public class PurchaseOrder {
 	@JoinColumn(name="CLIENT_ID")
 	private Client client;
 	
-	@OneToMany(mappedBy="")
+	@OneToMany(mappedBy="compKey.purchaseOrder")
 	private Set<PoLine> lines;
 	
 	//----------------------------------
@@ -58,37 +58,36 @@ public class PurchaseOrder {
 	public void setOrderNumber(int orderNumber) {
 		this.orderNumber = orderNumber;
 	}
-	public int getSubtotal() {
+	public double getSubtotal() {
 		return subtotal;
 	}
-	public void setSubtotal(int subtotal) {
+	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
-	public Date getPurchaseDate() {
+	public LocalDate getPurchaseDate() {
 		return purchaseDate;
 	}
-	public void setPurchaseDate(Date purchaseDate) {
+	public void setPurchaseDate(LocalDate purchaseDate) {
 		this.purchaseDate = purchaseDate;
 	}
-	public int getTaxAmount() {
+	public double getTaxAmount() {
 		return taxAmount;
 	}
-	public void setTaxAmount(int taxAmount) {
+	public void setTaxAmount(double taxAmount) {
 		this.taxAmount = taxAmount;
 	}
-	public int getPoTotal() {
+	public double getPoTotal() {
 		return poTotal;
 	}
-	public void setPoTotal(int poTotal) {
+	public void setPoTotal(double poTotal) {
 		this.poTotal = poTotal;
 	}
-	
 	//----------------------------------
 	// Constructors
 	public PurchaseOrder(){
 		super();
 	}
-	public PurchaseOrder(int subtotal, Date purchaseDate, int taxAmount, int poTotal) {
+	public PurchaseOrder(double subtotal, LocalDate purchaseDate, double taxAmount, double poTotal) {
 		this();
 		this.subtotal = subtotal;
 		this.purchaseDate = purchaseDate;

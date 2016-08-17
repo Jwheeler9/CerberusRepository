@@ -22,7 +22,7 @@ public class Product
 	@Column(name="PRODUCT_UPC")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="productSequence")
 	@SequenceGenerator(name="productSequence",sequenceName="PRODUCT_SEQUENCE",initialValue=1,allocationSize=1)
-	private int productUpc;
+	private int productUPC;
 	
 	@Column(name="PRODUCT_NAME", length=150, nullable=false)
 	private String productName;
@@ -59,11 +59,11 @@ public class Product
 	//----------------------------------
 	// Accessors
 	public int getProductUpc() {
-		return productUpc;
+		return productUPC;
 	}
 
-	public void setProductUpc(int productUpc) {
-		this.productUpc = productUpc;
+	public void setProductUPC(int productUPC) {
+		this.productUPC = productUPC;
 	}
 
 	public String getProductName() {

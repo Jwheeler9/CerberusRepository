@@ -17,7 +17,7 @@ public class PoLine
 	private CompositeKey compKey;
 	
 	@Column(name="UNIT_PRICE", nullable=false)
-	private int unitPrice;
+	private double unitPrice;
 	
 	@Column(name="QUANTITY_ORDERED", nullable=false)
 	private int quantityOrdered;
@@ -30,18 +30,15 @@ public class PoLine
 	
 	//----------------------------------
 	// Accessors
-	public int getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
-
-	public void setUnitPrice(int unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
-
 	public int getQuantityOrdered() {
 		return quantityOrdered;
 	}
-
 	public void setQuantityOrdered(int quantityOrdered) {
 		this.quantityOrdered = quantityOrdered;
 	}
@@ -51,10 +48,12 @@ public class PoLine
 	public PoLine() {
 		super();
 	}
-	public PoLine(int unitPrice, int quantityOrdered, int productUpc) {
+	public PoLine(CompositeKey compKey, double unitPrice, int quantityOrdered, Product product) {
 		this();
+		this.compKey = compKey;
 		this.unitPrice = unitPrice;
 		this.quantityOrdered = quantityOrdered;
+		this.product = product;
 	}
 }
 

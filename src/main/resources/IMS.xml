@@ -32,7 +32,7 @@
 	<bean name="ProductCategory" class="cerberus.IMS.beans.ProductCategory">
 		
 	</bean>
-	<bean name="PurchaseOrder" class="cerberus.IMS.beans.ProductCategory">
+	<bean name="PurchaseOrder" class="cerberus.IMS.beans.PurchaseOrder">
 		
 	</bean>
 </beans>

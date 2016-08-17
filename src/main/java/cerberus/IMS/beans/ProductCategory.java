@@ -56,9 +56,8 @@ public class ProductCategory {
 	public ProductCategory(){
 		super();
 	}
-	public ProductCategory(int categoryId, String categoryDescription) {
+	public ProductCategory(String categoryDescription) {
 		this();
-		this.categoryId = categoryId;
 		this.categoryDescription = categoryDescription;
 	}	
 }
