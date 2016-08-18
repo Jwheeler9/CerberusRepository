@@ -25,7 +25,7 @@ public class PoLine
 	//----------------------------------
 	// Relationship Mapping
 	@ManyToOne
-	@JoinColumn(name="PRODUCT_UPC")
+	@JoinColumn(name="PRODUCT_UPC", nullable=false)
 	private Product product;
 	
 	//----------------------------------

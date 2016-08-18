@@ -30,7 +30,7 @@ public class Address {
 	//----------------------------------
 	// Realationship Mapping
 	@ManyToOne
-	@JoinColumn(name="STATE_ID")
+	@JoinColumn(name="STATE_ID", nullable=false)
 	@Autowired
 	private StateAbbrv state;
 	

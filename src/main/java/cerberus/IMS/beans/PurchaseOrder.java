@@ -1,6 +1,6 @@
 package cerberus.IMS.beans;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -33,7 +33,7 @@ public class PurchaseOrder {
 
 	@Column(name="PURCHASE_DATE", nullable=false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private LocalDate purchaseDate;
+	private Date purchaseDate;
 	
 	@Column(name="TAX_AMOUNT", nullable=false)
 	private double taxAmount;
@@ -44,7 +44,7 @@ public class PurchaseOrder {
 	//----------------------------------
 	// Relationship Mapping
 	@ManyToOne
-	@JoinColumn(name="CLIENT_ID")
+	@JoinColumn(name="CLIENT_ID", nullable=false)
 	private Client client;
 	
 	@OneToMany(mappedBy="compKey.purchaseOrder")
@@ -64,10 +64,10 @@ public class PurchaseOrder {
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
-	public LocalDate getPurchaseDate() {
+	public Date getPurchaseDate() {
 		return purchaseDate;
 	}
-	public void setPurchaseDate(LocalDate purchaseDate) {
+	public void setPurchaseDate(Date purchaseDate) {
 		this.purchaseDate = purchaseDate;
 	}
 	public double getTaxAmount() {
@@ -87,11 +87,12 @@ public class PurchaseOrder {
 	public PurchaseOrder(){
 		super();
 	}
-	public PurchaseOrder(double subtotal, LocalDate purchaseDate, double taxAmount, double poTotal) {
+	public PurchaseOrder(double subtotal, Date purchaseDate, double taxAmount, double poTotal, Client client) {
 		this();
 		this.subtotal = subtotal;
 		this.purchaseDate = purchaseDate;
 		this.taxAmount = taxAmount;
 		this.poTotal = poTotal;
+		this.client = client;
 	}
 }

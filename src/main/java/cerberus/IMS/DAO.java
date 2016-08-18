@@ -7,7 +7,14 @@ public class DAO {
 	//----------------------------------
 	// Attributes
 	private Session session;
-
+	
+	public Session getSession() {
+		return session;
+	}
+	public void setSession(Session session) {
+		this.session = session;
+	}
+	
 	//----------------------------------
 	// Constructors
 	public DAO(){
@@ -20,8 +27,12 @@ public class DAO {
 	
 	//----------------------------------
 	// Methods
-	public void insert(Object _obj){
+	public void createRecord(Object _obj){
 		
 		session.save(_obj);
+	}
+	public void updateRecord(Object _obj){
+		
+		session.update(_obj); // <--- Session.update NOT WORKING
 	}
 }

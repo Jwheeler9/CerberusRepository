@@ -19,7 +19,7 @@ public class CompositeKey implements Serializable{
 	//----------------------------------
 	// Relationship Mapping
 	@ManyToOne
-	@JoinColumn(name="ORDER_NUMBER")
+	@JoinColumn(name="ORDER_NUMBER", nullable=false)
 	private PurchaseOrder purchaseOrder;
 	
 	//----------------------------------
@@ -37,8 +37,9 @@ public class CompositeKey implements Serializable{
 	public CompositeKey(){
 		super();
 	}
-	public CompositeKey(int orderNumber, int lineNumber) {
+	public CompositeKey(int lineNumber, PurchaseOrder purchaseOrder) {
 		this();
 		this.lineNumber = lineNumber;
+		this.purchaseOrder = purchaseOrder;
 	}
 }

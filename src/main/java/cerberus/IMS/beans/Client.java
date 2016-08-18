@@ -41,11 +41,11 @@ public class Client {
 	//----------------------------------
 	// Realationship Mapping
 	@OneToOne
-	@JoinColumn(name="ADDRESS_ID")
+	@JoinColumn(name="ADDRESS_ID", nullable=false, unique=true)
 	private Address clientAddress;
 	
 	@ManyToOne
-	@JoinColumn(name="CLIENT_TYPE_ID")
+	@JoinColumn(name="CLIENT_TYPE_ID", nullable=false)
 	private ClientType clientType;
 
 	//----------------------------------

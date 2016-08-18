@@ -16,8 +16,8 @@ public class ClientType {
 	// Attributes
 	@Id
 	@Column(name="CLIENT_TYPE_ID")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="clientIdSeq")
-	@SequenceGenerator(name="clientIdSeq", sequenceName="CLIENT_ID_SEQ", initialValue=1, allocationSize=1)
+	@GeneratedValue(strategy=GenerationType.SEQUENCE,generator="clientTypeSequence")
+	@SequenceGenerator(name="clientTypeSequence",sequenceName="CLIENT_TYPE_SEQUENCE",initialValue=1,allocationSize=1)
 	private int clientTypeId;
 	
 	@Column(name="CLIENT_TYPE", length=25, nullable=false)
