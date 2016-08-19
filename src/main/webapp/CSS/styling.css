@@ -1,0 +1,25 @@
+/* ----------------------  Id Selectors ---------------------- */
+
+/* --------------------- Class Selectors --------------------- */
+.header {
+	
+	text-align: center;
+	color: #660000;
+}
+.nav {
+
+	background-color: #ffcccc;
+}
+
+/* ---------------------- Tag Selectors ---------------------- */
+head, body, footer{
+	
+	background-color: #ffe6e6;
+}
+a {
+	
+	text-decoration: none;
+	color: #ffffff;
+	font-style: italic;
+	font-size: 1.4em;
+}

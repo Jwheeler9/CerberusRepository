@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM 
+"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">
+			oracle.jdbc.OracleDriver
+		</property>
+		<property name="hibernate.connection.url">
+			jdbc:oracle:thin:@orcl.cdqgapl8mosf.us-west-2.rds.amazonaws.com:1521:orcl
+		</property>
+		<property name="hibernate.connection.username">
+			Jwheeler
+		</property>
+		<property name="hibernate.connection.password">
+			jw5082059
+		</property>
+		<property name="hibernate.connection.pool_size">
+			20
+		</property>
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.Oracle10gDialect
+		</property>
+		<property name="hibernate.hbm2ddl.auto">
+			update
+		</property>
+		<!--  ORM Resources -->
+		<mapping class="cerberus.ims.beans.Address"></mapping>
+		<mapping class="cerberus.ims.beans.Client"></mapping>
+		<mapping class="cerberus.ims.beans.ClientType"></mapping>
+		<mapping class="cerberus.ims.beans.CompositeKey"></mapping>
+		<mapping class="cerberus.ims.beans.PoLine"></mapping>
+		<mapping class="cerberus.ims.beans.Product"></mapping>
+		<mapping class="cerberus.ims.beans.ProductCategory"></mapping>
+		<mapping class="cerberus.ims.beans.PurchaseOrder"></mapping>
+		<mapping class="cerberus.ims.beans.StateAbbrv"></mapping>
+	</session-factory>
+</hibernate-configuration>

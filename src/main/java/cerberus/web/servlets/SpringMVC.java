@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import cerberus.ims.beans.Client;
 import cerberus.ims.data.DataLayer;
 
+@Controller
 public class SpringMVC {
 
 	DataLayer layer;
@@ -41,11 +43,7 @@ public class SpringMVC {
 		
 		List<Client> clients = layer.grabClients();
 		
-		for(Client c : clients){
-    		System.out.println(c.getClientName());
-    	}
-		
-		//req.getSession().setAttribute("clients", clients);
+		req.getSession().setAttribute("clients", clients);
 		
 		return mv;
 	}

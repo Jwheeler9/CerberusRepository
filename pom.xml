@@ -5,7 +5,7 @@
   <artifactId>InventoryManagementSystem</artifactId>
   <packaging>war</packaging>
   <version>1.0</version>
-  <name>Inventory Management System</name>
+  <name>InventoryManagementSystem</name>
   <url>http://maven.apache.org</url>
   <dependencies>
     <dependency>
