@@ -1,4 +1,4 @@
-package cerberus.IMS.beans;
+package cerberus.ims.beans;
 
 import java.util.Date;
 import java.util.Set;
@@ -82,6 +82,13 @@ public class PurchaseOrder {
 	public void setPoTotal(double poTotal) {
 		this.poTotal = poTotal;
 	}
+	public Client getClient() {
+		return client;
+	}
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
 	//----------------------------------
 	// Constructors
 	public PurchaseOrder(){

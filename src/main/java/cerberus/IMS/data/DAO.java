@@ -1,13 +1,18 @@
-package cerberus.IMS;
+package cerberus.ims.data;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+
+import cerberus.ims.beans.Client;
 
 public class DAO {
 	
 	//----------------------------------
 	// Attributes
 	private Session session;
-	
+
 	public Session getSession() {
 		return session;
 	}
@@ -26,13 +31,22 @@ public class DAO {
 	}
 	
 	//----------------------------------
-	// Methods
+	// Methods (Push)
 	public void createRecord(Object _obj){
 		
 		session.save(_obj);
 	}
 	public void updateRecord(Object _obj){
 		
-		session.update(_obj); // <--- Session.update NOT WORKING
+		session.update(_obj);
+	}
+	//----------------------------------
+	// Queries (Pull)
+	@SuppressWarnings("unchecked")
+	public List<Client> getClients(){
+	
+		Criteria criteria = session.createCriteria(Client.class);
+	
+		return (List<Client>)criteria.list();
 	}
 }

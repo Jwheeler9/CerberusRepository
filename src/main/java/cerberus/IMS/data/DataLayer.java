@@ -1,7 +1,11 @@
-package cerberus.IMS;
+package cerberus.ims.data;
+
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import cerberus.ims.beans.Client;
 
 public class DataLayer {
 
@@ -15,11 +19,9 @@ public class DataLayer {
 	public Session getSession() {
 		return session;
 	}
-
 	public void setSession(Session session) {
 		this.session = session;
 	}
-
 	public DAO getDao() {
 		return dao;
 	}
@@ -31,7 +33,6 @@ public class DataLayer {
 	//----------------------------------
 	// Constructor && Cleanup
 	public DataLayer(){
-		
 		session = SessionFactoryManager.getInstance().openSession();
 		dao = new DAO(session);
 	}
@@ -40,7 +41,7 @@ public class DataLayer {
 	}
 	
 	//----------------------------------
-	// Methods
+	// Methods (Push)
 	public void makeRecord(Object _obj){
 		
 		Transaction tx = session.beginTransaction();
@@ -56,5 +57,12 @@ public class DataLayer {
 		dao.updateRecord(_obj);
 		
 		tx.commit();
+	}
+	
+	//----------------------------------
+	// Queries (Pull)
+	public List<Client> grabClients(){
+		
+		return dao.getClients();
 	}
 }

@@ -1,4 +1,4 @@
-package cerberus.IMS.beans;
+package cerberus.ims.beans;
 
 import java.util.Set;
 

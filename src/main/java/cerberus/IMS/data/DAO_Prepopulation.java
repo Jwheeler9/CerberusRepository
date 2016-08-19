@@ -1,4 +1,4 @@
-package cerberus.IMS;
+package cerberus.ims.data;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,23 +10,28 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
-import cerberus.IMS.beans.Address;
-import cerberus.IMS.beans.Client;
-import cerberus.IMS.beans.ClientType;
-import cerberus.IMS.beans.CompositeKey;
-import cerberus.IMS.beans.PoLine;
-import cerberus.IMS.beans.Product;
-import cerberus.IMS.beans.ProductCategory;
-import cerberus.IMS.beans.PurchaseOrder;
-import cerberus.IMS.beans.StateAbbrv;
-
-//enum DB_Action{
-//	
-//	MAKE, CHANGE
-//};
+import cerberus.ims.beans.Address;
+import cerberus.ims.beans.Client;
+import cerberus.ims.beans.ClientType;
+import cerberus.ims.beans.CompositeKey;
+import cerberus.ims.beans.PoLine;
+import cerberus.ims.beans.Product;
+import cerberus.ims.beans.ProductCategory;
+import cerberus.ims.beans.PurchaseOrder;
+import cerberus.ims.beans.StateAbbrv;
 
 public class DAO_Prepopulation {
-
+		
+	public void populateDatabase(){
+		
+		populateStates();
+		populateClientTypes();
+		populateProducts_AND_ProductCategories();
+		populateAddresses();
+		populateClients();
+		populatePurchaseOrders();
+		populatePoLines();
+	}
 	public void populateStates(){
 		
 		String[] stateArr = new String[] {"Alabama", "Arkansas", "Arizona", "Alaska", "California", "Colorado", "Connecticut", "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming" };
@@ -44,7 +49,6 @@ public class DAO_Prepopulation {
 		
 		System.out.println("-- Done Populating State Table -- \n");
 	}
-	
 	public void populateClientTypes(){
 		
 		String[] types = new String[] {"Supplier", "Retailer"};
@@ -62,7 +66,6 @@ public class DAO_Prepopulation {
 		
 		System.out.println("-- Done Populating Client Types Table -- \n");
 	}
-	
 	public void populateProducts_AND_ProductCategories(){
 		
 		// Information Source: http://www.microcenter.com/
@@ -325,7 +328,7 @@ public class DAO_Prepopulation {
 		};
 	
 		DataLayer layer = new DataLayer();
-		Session session = SessionFactoryManager.getInstance().openSession();
+		Session session = layer.getSession();
 		
 		Address address;
 		
@@ -403,7 +406,7 @@ public class DAO_Prepopulation {
 		int[] clientTypeId = new int[]{1, 1, 1, 2, 2}; // 1 = Supplier && 2 = Retailer
 	
 		DataLayer layer = new DataLayer();
-		Session session = SessionFactoryManager.getInstance().openSession();
+		Session session = layer.getSession();
 		
 		Client client;
 		ClientType clientType = null;
@@ -465,7 +468,7 @@ public class DAO_Prepopulation {
 		int[] clientId = new int[]{5,6,7,8,9}; // Generated Sequence Skipped 1-4! 
 		
 		DataLayer layer = new DataLayer();
-		Session session = SessionFactoryManager.getInstance().openSession();
+		Session session = layer.getSession();
 		
 		PurchaseOrder purchaseOrder;
 		Client client = null;
@@ -485,7 +488,7 @@ public class DAO_Prepopulation {
 	public void populatePoLines(){
 		
 		DataLayer layer = new DataLayer();
-		Session session = SessionFactoryManager.getInstance().openSession();
+		Session session = layer.getSession();
 		Criteria criteria;
 		
 		List<CompositeKey> compKeys = new ArrayList<CompositeKey>();

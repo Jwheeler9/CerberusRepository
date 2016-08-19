@@ -1,4 +1,4 @@
-package cerberus.IMS.beans;
+package cerberus.ims.beans;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -42,7 +42,18 @@ public class PoLine
 	public void setQuantityOrdered(int quantityOrdered) {
 		this.quantityOrdered = quantityOrdered;
 	}
-
+	public CompositeKey getCompKey() {
+		return compKey;
+	}
+	public void setCompKey(CompositeKey compKey) {
+		this.compKey = compKey;
+	}
+	public Product getProduct() {
+		return product;
+	}
+	public void setProduct(Product product) {
+		this.product = product;
+	}
 	//----------------------------------
 	// Constructors
 	public PoLine() {
