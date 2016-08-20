@@ -17,27 +17,14 @@
 		<h2 class="header">Clients</h2>
 	</div>
 	<div class="container">
-	
-	<!--
-	
-	Company Name: <input type="text" name="clientName" class="form-control"> <br/>
-	Email: <input type="text" name="clientEmail" class="form-control"> <br/>
-	Contact Name: <input type="text" name="contactName" class="form-control"> <br/>
-	Phone: <input type="text" name="clientPhone" class="form-control"> <br/>
-	Fax: <input type="text" name="clientFax" class="form-control"> <br/>
-	Address: <input type="text" name="clientAddress" class="form-control"> <br/>
-	Type: <input type="text" name="clientType" class="form-control"> <br/>
-	
-	-->
-	
 		<table class="table table-hover">
-			<col id="col1" width="14%">
-		    <col id="col2" width="17%">
-		    <col id="col3" width="14%">
-		    <col id="col4" width="14%">
-		    <col id="col5" width="14%">
-		    <col id="col6" width="14%">
-		    <col id="col7" width="13%">
+			<col width="14%">
+		    <col width="17%">
+		    <col width="14%">
+		    <col width="14%">
+		    <col width="14%">
+		    <col width="14%">
+		    <col width="13%">
 			<tr>
 				<th>Name</th>
 				<th>Email</th>
@@ -58,9 +45,39 @@
 				<td><c:out value="${c.clientType.clientType}"></c:out></td>
 			</tr>
 			</c:forEach>
-			<tr id="clientSlot"></tr>
-			<tr><td><input type="button" id="newClient" value="+"/></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-			<tr id="saveSlot"><td><input type="button" id="commitClient" value="Save"/></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+			<tr id="clientSlot" class="initSlot"><td></td><td></td><td></td><td></td><td></td>
+			
+				<td id="stateBlock"><select id="icState">
+            	<c:forEach var="s" items="${states}">
+        			<option value="${s.stateName}"><c:out value="${s.stateName}"></c:out></option>
+        		</c:forEach> 
+	            </select>
+	            </td>
+				<td id="typeBlock"><select id="icType">
+				<c:forEach var="t" items="${types}">
+        			<option value="${t.clientType}"><c:out value="${t.clientType}"></c:out></option>
+        		</c:forEach> 
+	            </select>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" id="newClient" value="+"/></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr id="saveSlot">
+				<td id="saveButton"><input type="button" id="commitClient" value="Save"/></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td><input type="button" id="rollbackView" value="-"/></td>
+			</tr>
 		</table>
 	</div>
 </body>
@@ -68,27 +85,136 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
+	var states;
+	var types;
+
+	$("#rollbackView").css("display", "none");
 	$("#saveSlot td").css("display", "none");
+
+	//-------------------------------------------------------------------------------------
+	
+	$(document).change(function(){
+		$("input [type=\"text\"]").css("width", "100%");
+	});
+
+	//-------------------------------------------------------------------------------------
+	
+	var clicked = false;
+	
 	$("#newClient").click(function(){
 		
+		if(clicked === false){
+			
+			states = $("#stateBlock").html();
+			types = $("#typeBlock").html();
+		}
+		
+		$("#newClient").css("display", "none");
+		$("#rollbackView").css("display", "inline");
 		$("#saveSlot td").css("display", "inline");
-		$("#clientSlot").replaceWith( "<tr>" + 
-										  "<td><input type=\"text\" name=\"icName\"/></td>" + 
-										  "<td><input type=\"text\" name=\"icEmail\"/></td>" + 
-										  "<td><input type=\"text\" name=\"icContact\"/></td>" + 
-										  "<td><input type=\"text\" name=\"icPhone\"/></td>" + 
-										  "<td><input type=\"text\" name=\"icFax\"/></td>" + 
-										  "<td><input type=\"text\" name=\"icState\"/></td>" + 
-										  "<td><input type=\"text\" name=\"icType\"/></td>" + 
+		$("#clientSlot").replaceWith( "<tr id=\"inputSlot\">" + 
+										  "<td><input type=\"text\" id=\"icName\"/></td>" + 
+										  "<td><input type=\"text\" id=\"icEmail\"/></td>" + 
+										  "<td><input type=\"text\" id=\"icContact\"/></td>" + 
+										  "<td><input type=\"text\" id=\"icPhone\"/></td>" + 
+										  "<td><input type=\"text\" id=\"icFax\"/></td>" + 
+										  "<td>" + states + "</td><td>" + types + "</td>" + 
+									  "</tr>" +
+									  "<tr class=\"addressText\"><th>Address</th>" + 
+									  	  "<td></td>" + 
+										  "<td></td>" + 
+										  "<td></td>" +
+										  "<td></td>" + 
+										  "<td></td>" + 
+										  "<td></td>" +  
+									  "</tr>" +
+									  "<tr class=\"addressText\">" + 
+										  "<th>Street 1</th>" + 
+										  "<th>Street 2</th>" + 
+										  "<th>City</th>" + 
+										  "<th>Zip Code</th>" +
+										  "<th></th>" +
+										  "<th></th>" +
+										  "<th></th>" +   
+									  "</tr>" +
+									  "<tr class=\"addressText\">" + 
+										  "<td><input type=\"text\" id=\"iaStreet1\"/></td>" + 
+										  "<td><input type=\"text\" id=\"iaStreet2\"/></td>" + 
+										  "<td><input type=\"text\" id=\"iaCity\"/></td>" + 
+										  "<td><input type=\"text\" id=\"iaZip\"/></td>" +
+										  "<td></td>" + 
+										  "<td></td>" + 
+										  "<td></td>" +  
 									  "</tr>" +
 									  "<tr id=\"clientSlot\"></tr>");
 									  
-		$("input [type='text']").css("width", "100%");
+		clicked = true;
 	});
+	
+	//-------------------------------------------------------------------------------------
+	
+	$("#rollbackView").click(function(){
+		
+		$("#rollbackView").css("display", "none");
+		$("#saveSlot td").css("display", "none");
+		$("#inputSlot").remove();
+		$(".addressText").remove();
+		
+		$("#newClient").css("display", "inline");
+	});
+	
+	//-------------------------------------------------------------------------------------
+	
 	$("#commitClient").click(function(){
 		
+		$("#newClient").css("display", "inline");
 		$("#saveSlot td").css("display", "none");
-		alert("Commit!");
+		
+		// Client Line
+		var inputClientName = $("#icName").val();
+		var inputClientEmail = $("#icEmail").val();
+		var inputClientContact = $("#icContact").val();
+		var inputClientPhone = $("#icPhone").val();
+		var inputClientFax = $("#icFax").val();
+		var inputClientState = $("#icState option:selected").text();
+		var inputClientType = $("#icType option:selected").text();
+		
+		// Address Line
+		var inputAddressSt1 = $("#iaStreet1").val();
+		var inputAddressSt2 = $("#iaStreet2").val();
+		var inputAddressCity = $("#iaCity").val();
+		var inputAddressZip = $("#iaZip").val();
+		
+		$(".addressText").html("");
+		
+		$("#inputSlot").replaceWith("<tr>" + 
+										"<td>" + inputClientName + "</td>" +
+										"<td>" + inputClientEmail + "</td>" +
+										"<td>" + inputClientContact + "</td>" +
+										"<td>" + inputClientPhone + "</td>" +
+										"<td>" + inputClientFax + "</td>" +
+										"<td>" + inputClientState + "</td>" +
+										"<td>" + inputClientType + "</td>" +
+									"</tr>");
+		
+		$.ajax({
+			url: "http://localhost:7001/IMS/addClient.do",
+			method: "POST",
+			data: JSON.stringify({ 
+								   clientName: inputClientName, 
+								   clientEmail: inputClientEmail, 
+								   pointOfContactName: inputClientContact,
+								   clientPhone: inputClientPhone,
+								   clientFax: inputClientFax,
+								   passedStateName: inputClientState,
+								   passedClientType: inputClientType,
+								   passedAddressStreet1: inputAddressSt1,
+								   passedAddressStreet2: inputAddressSt2,
+								   passedAddressCity: inputAddressCity,
+								   passedAddressZip: inputAddressZip
+								}),
+			contentType: "application/json"
+		});
 	});
 });
 </script>

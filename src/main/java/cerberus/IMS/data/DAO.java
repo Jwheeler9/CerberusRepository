@@ -6,7 +6,9 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import cerberus.ims.beans.Client;
+import cerberus.ims.beans.ClientType;
 import cerberus.ims.beans.Product;
+import cerberus.ims.beans.StateAbbrv;
 
 public class DAO {
 	
@@ -41,6 +43,7 @@ public class DAO {
 		
 		session.update(_obj);
 	}
+	
 	//----------------------------------
 	// Queries (Pull)
 	@SuppressWarnings("unchecked")
@@ -56,6 +59,20 @@ public class DAO {
 		Criteria criteria = session.createCriteria(Product.class);
 	
 		return (List<Product>)criteria.list();
+	}
+	@SuppressWarnings("unchecked")
+	public List<StateAbbrv> getStates(){
+	
+		Criteria criteria = session.createCriteria(StateAbbrv.class);
+	
+		return (List<StateAbbrv>)criteria.list();
+	}
+	@SuppressWarnings("unchecked")
+	public List<ClientType> getTypes(){
+	
+		Criteria criteria = session.createCriteria(ClientType.class);
+	
+		return (List<ClientType>)criteria.list();
 	}
 	
 }

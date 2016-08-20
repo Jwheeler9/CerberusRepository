@@ -37,6 +37,16 @@ public class Client {
 	
 	@Column(name="CLIENT_FAX", length=15, nullable=false)
 	private String clientFax;
+	
+	
+	//----------------------------------
+	// Ajax Front-End Mapping
+	private String passedStateName;
+	private String passedClientType;
+	private String passedAddressStreet1;
+	private String passedAddressStreet2;
+	private String passedAddressCity;
+	private String passedAddressZip;
 
 	//----------------------------------
 	// Realationship Mapping
@@ -99,6 +109,44 @@ public class Client {
 		this.clientType = clientType;
 	}
 	
+	// Ajax Front-End Mapping (Accessors)
+	public String getPassedStateName() {
+		return passedStateName;
+	}
+	public void setPassedStateName(String passedStateName) {
+		this.passedStateName = passedStateName;
+	}
+	public String getPassedClientType() {
+		return passedClientType;
+	}
+	public void setPassedClientType(String passedClientType) {
+		this.passedClientType = passedClientType;
+	}
+	public String getPassedAddressStreet1() {
+		return passedAddressStreet1;
+	}
+	public void setPassedAddressStreet1(String passedAddressStreet1) {
+		this.passedAddressStreet1 = passedAddressStreet1;
+	}
+	public String getPassedAddressStreet2() {
+		return passedAddressStreet2;
+	}
+	public void setPassedAddressStreet2(String passedAddressStreet2) {
+		this.passedAddressStreet2 = passedAddressStreet2;
+	}
+	public String getPassedAddressCity() {
+		return passedAddressCity;
+	}
+	public void setPassedAddressCity(String passedAddressCity) {
+		this.passedAddressCity = passedAddressCity;
+	}
+	public String getPassedAddressZip() {
+		return passedAddressZip;
+	}
+	public void setPassedAddressZip(String passedAddressZip) {
+		this.passedAddressZip = passedAddressZip;
+	}
+	
 	//----------------------------------
 	// Constructors
 	public Client(){
@@ -114,5 +162,24 @@ public class Client {
 		this.clientFax = clientFax;
 		this.clientAddress = clientAddress;
 		this.clientType = clientType;
+	}
+	
+	// Ajax Front-End Mapping (Constructor)
+	public Client(String clientName, String clientEmail, String pointOfContactName, String clientPhone,
+			String clientFax, String passedStateName, String passedClientType, String passedAddressStreet1,
+			String passedAddressStreet2, String passedAddressCity, String passedAddressZip) {
+		
+		this();
+		this.clientName = clientName;
+		this.clientEmail = clientEmail;
+		this.pointOfContactName = pointOfContactName;
+		this.clientPhone = clientPhone;
+		this.clientFax = clientFax;
+		this.passedStateName = passedStateName;
+		this.passedClientType = passedClientType;
+		this.passedAddressStreet1 = passedAddressStreet1;
+		this.passedAddressStreet2 = passedAddressStreet2;
+		this.passedAddressCity = passedAddressCity;
+		this.passedAddressZip = passedAddressZip;
 	}
 }
