@@ -22,6 +22,8 @@ import cerberus.ims.beans.StateAbbrv;
 
 public class DAO_Prepopulation {
 		
+	// Information Source: http://www.microcenter.com/
+	
 	public void populateDatabase(){
 		
 		populateStates();
@@ -68,7 +70,7 @@ public class DAO_Prepopulation {
 	}
 	public void populateProducts_AND_ProductCategories(){
 		
-		// Information Source: http://www.microcenter.com/
+		
 		DataLayer layer = new DataLayer();
 		List<ProductCategory> productCategories;
 		

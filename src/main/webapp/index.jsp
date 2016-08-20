@@ -12,6 +12,16 @@
     <!----> 
 </head>
 <body>
+	<c:choose>
+		<c:when test="${empty gotData}">
+			<c:redirect url="pullData.do"/>
+		</c:when>
+		<c:when test="${gotData eq false}">
+			<c:redirect url="pullData.do"/>
+		</c:when>
+		<c:otherwise></c:otherwise>
+	</c:choose>
+
 	<div class="container">
 	<jsp:include page="/JSP/navigation.jsp"/> 			
 	<h3 class="header"> °º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸ <strong>Welcome Back, Team Cerberus </strong> °º¤ø,¸¸,ø¤º°`°º¤ø,¸,ø¤°º¤ø,¸ </h3>
