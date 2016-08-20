@@ -11,6 +11,10 @@
 
 	background-color: #ffcccc;
 }
+.initSlot {
+	
+	display: none;
+}
 
 /* ---------------------- Tag Selectors ---------------------- */
 head, body, footer{
@@ -23,4 +27,17 @@ a {
 	color: #ffffff;
 	font-style: italic;
 	font-size: 1.4em;
+}
+input[type="text"] !important {
+    width: 100%;
+}
+table tr !important {
+	
+	width: 1330px;
+	height: 37px;
+}
+table td !important {
+	
+	width: 190px;
+	height: 37px;
 }

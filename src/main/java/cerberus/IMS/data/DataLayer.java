@@ -6,7 +6,9 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import cerberus.ims.beans.Client;
+import cerberus.ims.beans.ClientType;
 import cerberus.ims.beans.Product;
+import cerberus.ims.beans.StateAbbrv;
 
 public class DataLayer {
 
@@ -69,5 +71,13 @@ public class DataLayer {
 	public List<Product> grabProducts(){
 		
 		return dao.getProducts();
+	}
+	public List<StateAbbrv> grabStates(){
+			
+			return dao.getStates();
+		}
+	public List<ClientType> grabTypes(){
+		
+		return dao.getTypes();
 	}
 }

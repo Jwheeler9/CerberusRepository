@@ -14,6 +14,7 @@
 <body>
 	<div class="container">
 	<ul class="nav nav-tabs nav-justified">
+		<li id="nav0"><a href="index.jsp">Home</a></li>
 		<li id="nav1"><a href="viewInvoice.do">Invoices</a></li>
       	<li id="nav2"><a href="viewClients.do">Clients</a></li>
       	<li id="nav3"><a href="viewProducts.do">Products</a></li>
