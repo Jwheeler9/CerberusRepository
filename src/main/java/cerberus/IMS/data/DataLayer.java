@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import cerberus.ims.beans.Client;
+import cerberus.ims.beans.Product;
 
 public class DataLayer {
 
@@ -64,5 +65,9 @@ public class DataLayer {
 	public List<Client> grabClients(){
 		
 		return dao.getClients();
+	}
+	public List<Product> grabProducts(){
+		
+		return dao.getProducts();
 	}
 }

@@ -6,6 +6,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 
 import cerberus.ims.beans.Client;
+import cerberus.ims.beans.Product;
 
 public class DAO {
 	
@@ -49,4 +50,12 @@ public class DAO {
 	
 		return (List<Client>)criteria.list();
 	}
+	@SuppressWarnings("unchecked")
+	public List<Product> getProducts(){
+	
+		Criteria criteria = session.createCriteria(Product.class);
+	
+		return (List<Product>)criteria.list();
+	}
+	
 }

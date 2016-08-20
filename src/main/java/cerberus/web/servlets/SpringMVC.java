@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import cerberus.ims.beans.Client;
+import cerberus.ims.beans.Product;
 import cerberus.ims.data.DataLayer;
 
 @Controller
@@ -25,6 +26,10 @@ public class SpringMVC {
 		// Grab Clients
 		List<Client> clients = layer.grabClients();
 		req.getSession().setAttribute("clients", clients);
+		
+		// Grab Products
+		List<Product> products = layer.grabProducts();
+		req.getSession().setAttribute("products", products);
 		
 		// Lock Data
 		req.getSession().setAttribute("gotData", true);

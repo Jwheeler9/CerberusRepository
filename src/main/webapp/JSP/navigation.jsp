@@ -14,10 +14,10 @@
 <body>
 	<div class="container">
 	<ul class="nav nav-tabs nav-justified">
-		<li><a href="viewInvoice.do"><strong>Generate Invoice</strong></a></li>
-      	<li><a href="viewClients.do">Update Clients</a></li>
-      	<li><a href="viewProducts.do">Update Products</a></li>
-      	<li><a href="viewReports.do">Generate Reports</a></li>
+		<li id="nav1"><a href="viewInvoice.do">Invoices</a></li>
+      	<li id="nav2"><a href="viewClients.do">Clients</a></li>
+      	<li id="nav3"><a href="viewProducts.do">Products</a></li>
+      	<li id="nav4"><a href="viewReports.do">Reports</a></li>
     </ul>
 	</div>
 </body>
