@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import cerberus.ims.beans.Client;
 import cerberus.ims.beans.ClientType;
 import cerberus.ims.beans.Product;
+import cerberus.ims.beans.PurchaseOrder;
 import cerberus.ims.beans.StateAbbrv;
 
 public class DAO {
@@ -73,6 +74,13 @@ public class DAO {
 		Criteria criteria = session.createCriteria(ClientType.class);
 	
 		return (List<ClientType>)criteria.list();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<PurchaseOrder> getOrders() {
+		// TODO Auto-generated method stub
+		Criteria criteria = session.createCriteria(PurchaseOrder.class);
+		return (List<PurchaseOrder>)criteria.list();
 	}
 	
 }

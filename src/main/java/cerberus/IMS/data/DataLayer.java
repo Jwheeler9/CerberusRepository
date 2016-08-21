@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import cerberus.ims.beans.Client;
 import cerberus.ims.beans.ClientType;
 import cerberus.ims.beans.Product;
+import cerberus.ims.beans.PurchaseOrder;
 import cerberus.ims.beans.StateAbbrv;
 
 public class DataLayer {
@@ -79,5 +80,10 @@ public class DataLayer {
 	public List<ClientType> grabTypes(){
 		
 		return dao.getTypes();
+	}
+	
+	public List<PurchaseOrder> grabOrders(){
+		
+		return dao.getOrders();
 	}
 }

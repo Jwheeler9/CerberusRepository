@@ -20,6 +20,7 @@ import cerberus.ims.beans.Address;
 import cerberus.ims.beans.Client;
 import cerberus.ims.beans.ClientType;
 import cerberus.ims.beans.Product;
+import cerberus.ims.beans.PurchaseOrder;
 import cerberus.ims.beans.StateAbbrv;
 import cerberus.ims.data.DataLayer;
 
@@ -30,8 +31,8 @@ public class SpringMVC {
 	// Background Processes (No Redirection)
 	@RequestMapping(value="pullData.do", method=RequestMethod.GET)
 	public void getData(HttpServletRequest req, HttpServletResponse resp){
-			
-		DataLayer layer = new DataLayer();
+			System.out.println("PULLING DATA");
+		/*DataLayer layer = new DataLayer();
 		
 		// Grab Clients
 		List<Client> clients = layer.grabClients();
@@ -49,13 +50,23 @@ public class SpringMVC {
 		List<ClientType> types = layer.grabTypes();
 		req.getSession().setAttribute("types", types);
 		
+		List<PurchaseOrder> orders=layer.grabOrders();
+		req.getSession().setAttribute("orders", orders);
+		if(req.getSession().getAttribute("orders")!=null)
+		{
+			System.out.println("ORDERS SET");
+		}
+		else
+		{
+			System.out.println("NO ORDERS SET");
+		}
 		// Lock Data
-		req.getSession().setAttribute("gotData", true);
+		req.getSession().setAttribute("gotData", true);*/
 		
 		try {resp.sendRedirect("index.jsp");} catch (IOException e) {e.printStackTrace();}
 	}
 	
-	@RequestMapping(value="addClient.do", method=RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value="/addClient.do", method=RequestMethod.POST, consumes="application/json")
 	@ResponseBody
 	public void persistClient(HttpServletRequest req, HttpServletResponse resp, @RequestBody Client client){
 		
@@ -94,7 +105,8 @@ public class SpringMVC {
 	//----------------------------------
 	// Redirection Mapping
 	@RequestMapping(value="viewInvoice.do", method=RequestMethod.GET)
-	public ModelAndView getInvoices(){
+	public ModelAndView getInvoices()
+	{
 		
 		/*
 		 *  Get Invoices (Product Orders) from Database
@@ -105,14 +117,32 @@ public class SpringMVC {
 		return mv;
 	}
 	
-	@RequestMapping(value="viewClients.do", method=RequestMethod.GET)
-	public ModelAndView getClients(){
-		
+	@RequestMapping(value="/viewClients.do", method=RequestMethod.GET)
+	public ModelAndView getClients(HttpServletRequest req, HttpServletResponse resp)
+	{
+		if(req.getSession().getAttribute("clients")==null)
+		{
+			DataLayer layer = new DataLayer();
+			List<Client> clients = layer.grabClients();
+			req.getSession().setAttribute("clients", clients);
+			if(req.getSession().getAttribute("clients")==null)
+			{
+				System.out.println("CLIENTS SET");
+			}
+			else
+			{
+				System.out.println("CLIENTS NOT SET");
+			}
+		}
+		if(req.getSession().getAttribute("gotData")==null)
+		{
+			req.getSession().setAttribute("gotData", true);
+		}
 		ModelAndView mv = new ModelAndView("viewClients"); // --> /JSP/viewClients.jsp
 		return mv;
 	}
 	
-	@RequestMapping(value="viewProducts.do", method=RequestMethod.GET)
+	@RequestMapping(value="/viewProducts.do", method=RequestMethod.GET)
 	public ModelAndView getProducts(){
 		
 		/*
@@ -124,14 +154,37 @@ public class SpringMVC {
 		return mv;
 	}
 	
-	@RequestMapping(value="viewReports.do", method=RequestMethod.GET)
-	public ModelAndView getReports(){
+	@RequestMapping(value="/viewReports.do", method=RequestMethod.GET)
+	public ModelAndView getReports(HttpServletRequest req, HttpServletResponse resp)
+	{
 		
 		/*
 		 *  Get Report Options from Prepopulated List?
 		 */
-		
+		if(req.getSession().getAttribute("orders")==null)
+		{
+			System.out.println("PULLING ORDERS");
+			DataLayer layer = new DataLayer();
+			
+			List<PurchaseOrder> orders=layer.grabOrders();
+			req.getSession().setAttribute("orders", orders);
+			if(req.getSession().getAttribute("orders")!=null)
+			{
+				System.out.println("ORDERS SET");
+			}
+			else
+			{
+				System.out.println("NO ORDERS SET");
+			}
+		}
+			// Lock Data
+		if((req.getSession().getAttribute("gotData")==null))
+		{
+
+			req.getSession().setAttribute("gotData", true);
+		}
 		ModelAndView mv = new ModelAndView("viewReports");
 		return mv;
+		
 	}
 }

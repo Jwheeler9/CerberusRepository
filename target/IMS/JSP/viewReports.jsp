@@ -15,6 +15,22 @@
 	<div class="container">
 		<jsp:include page="/JSP/navigation.jsp"/> 	
 		<h2 class="header">View Reports</h2>
+		<p>HI</p>
+		<table>
+		<tr>
+		<th>Order Number</th></tr>
+		<c:choose>
+		<c:when test="${not empty orders}">
+			<c:forEach var="order" items="${orders}"> 
+				<tr><c:out value="${order.orderNumber}"/></tr>
+			</c:forEach>
+		</c:when>
+		<c:otherwise>
+			<c:out value="hello"/>
+		</c:otherwise>
+		</c:choose>
+		</table>
+		<p>HI</p>
 	</div>
 </body>
 </html>
