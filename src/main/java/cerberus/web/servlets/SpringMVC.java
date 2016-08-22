@@ -59,7 +59,6 @@ public class SpringMVC {
 	@ResponseBody
 	public void persistClient(HttpServletRequest req, HttpServletResponse resp, @RequestBody Client client){
 		
-		
 		DataLayer layer = new DataLayer();
 		Session session = (Session)layer.getSession();
 		
@@ -87,8 +86,12 @@ public class SpringMVC {
 		
 		layer.makeRecord(myClient);
 		
-		// Unlock Data (The database was altered)
-		req.getSession().setAttribute("gotData", false);
+		// Add Data to Altered Lists
+		@SuppressWarnings("unchecked")
+		List<Client> newClients = (List<Client>)req.getSession().getAttribute("clients");
+		newClients.add(myClient);
+		
+		req.getSession().setAttribute("clients", newClients);
 	}
 	
 	//----------------------------------
@@ -108,7 +111,7 @@ public class SpringMVC {
 	@RequestMapping(value="viewClients.do", method=RequestMethod.GET)
 	public ModelAndView getClients(){
 		
-		ModelAndView mv = new ModelAndView("viewClients"); // --> /JSP/viewClients.jsp
+		ModelAndView mv = new ModelAndView("viewClients");
 		return mv;
 	}
 	

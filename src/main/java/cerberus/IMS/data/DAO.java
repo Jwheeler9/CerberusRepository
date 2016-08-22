@@ -74,5 +74,4 @@ public class DAO {
 	
 		return (List<ClientType>)criteria.list();
 	}
-	
 }
