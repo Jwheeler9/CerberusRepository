@@ -5,9 +5,12 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import cerberus.ims.beans.Address;
 import cerberus.ims.beans.Client;
 import cerberus.ims.beans.ClientType;
+import cerberus.ims.beans.PoLine;
 import cerberus.ims.beans.Product;
+import cerberus.ims.beans.ProductCategory;
 import cerberus.ims.beans.PurchaseOrder;
 import cerberus.ims.beans.StateAbbrv;
 
@@ -37,10 +40,12 @@ public class DataLayer {
 	//----------------------------------
 	// Constructor && Cleanup
 	public DataLayer(){
+		
 		session = SessionFactoryManager.getInstance().openSession();
 		dao = new DAO(session);
 	}
 	public void close(){
+		
 		if(session != null) session.close();
 	}
 	
@@ -65,25 +70,36 @@ public class DataLayer {
 	
 	//----------------------------------
 	// Queries (Pull)
+	public List<PoLine> grabLines(){
+		
+		return dao.getLines();
+	}
+	public List<PurchaseOrder> grabOrders(){
+		
+		return dao.getOrders();
+	}
 	public List<Client> grabClients(){
 		
 		return dao.getClients();
+	}
+	public List<ClientType> grabTypes(){
+		
+		return dao.getTypes();
+	}
+	public List<Address> grabAddresses(){
+		
+		return dao.getAddresses();
+	}
+	public List<StateAbbrv> grabStates(){
+		
+		return dao.getStates();
 	}
 	public List<Product> grabProducts(){
 		
 		return dao.getProducts();
 	}
-	public List<StateAbbrv> grabStates(){
-			
-			return dao.getStates();
-		}
-	public List<ClientType> grabTypes(){
+	public List<ProductCategory> grabCategories(){
 		
-		return dao.getTypes();
-	}
-	
-	public List<PurchaseOrder> grabOrders(){
-		
-		return dao.getOrders();
+		return dao.getCategories();
 	}
 }
