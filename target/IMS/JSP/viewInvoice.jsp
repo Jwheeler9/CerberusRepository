@@ -15,6 +15,7 @@
 	<div class="container">
 		<jsp:include page="/JSP/navigation.jsp"/> 	
 		<h2 class="header">View Invoice</h2>
+		
 	</div>
 </body>
 </html>

@@ -8,7 +8,7 @@
 	<title>Home</title>
 	<!--CSS-->
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling1.css" type="text/css">
     <!----> 
 </head>
 <body>

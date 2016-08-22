@@ -66,7 +66,13 @@
 /* ---------------------- Tag Selectors ---------------------- */
 head, body, footer{
 	
+<<<<<<< HEAD:src/main/webapp/CSS/styling.css
 	background-color: #f2f2f2;
+=======
+	background-color: #ffe6e6;
+	width:100%;
+	text-align:center;
+>>>>>>> origin/val:src/main/webapp/CSS/styling1.css
 }
 a {
 	
@@ -75,9 +81,20 @@ a {
 	font-style: italic;
 	font-size: 1.4em;
 }
+<<<<<<< HEAD:src/main/webapp/CSS/styling.css
 table.display tbody tr td{
 	
     background-color: #f2f2f2;
+=======
+
+input, button
+{
+	width:80%;
+}
+/*
+input[type="text"] !important {
+    width: 100%;
+>>>>>>> origin/val:src/main/webapp/CSS/styling1.css
 }
 th {
 	
@@ -91,5 +108,22 @@ tbody td {
 }
 table.dataTable{
 	
+<<<<<<< HEAD:src/main/webapp/CSS/styling.css
 	border-collapse: collapse;
+=======
+	width: 190px;
+	height: 37px;
+}*/
+table
+{
+	width:100%;
+}
+tr
+{
+	border:solid 1px black;
+}
+td, th
+{
+	padding:2%;
+>>>>>>> origin/val:src/main/webapp/CSS/styling1.css
 }

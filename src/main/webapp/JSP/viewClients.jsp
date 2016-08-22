@@ -10,7 +10,7 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
 	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/dataTable.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling1.css" type="text/css">
     <!----> 
 </head>
 <body>

@@ -19,7 +19,10 @@ import org.springframework.web.servlet.ModelAndView;
 import cerberus.ims.beans.Address;
 import cerberus.ims.beans.Client;
 import cerberus.ims.beans.ClientType;
+import cerberus.ims.beans.PoLine;
 import cerberus.ims.beans.Product;
+import cerberus.ims.beans.ProductCategory;
+import cerberus.ims.beans.PurchaseOrder;
 import cerberus.ims.beans.StateAbbrv;
 import cerberus.ims.data.DataLayer;
 
@@ -30,24 +33,40 @@ public class SpringMVC {
 	// Background Processes (No Redirection)
 	@RequestMapping(value="pullData.do", method=RequestMethod.GET)
 	public void getData(HttpServletRequest req, HttpServletResponse resp){
-			
+		
 		DataLayer layer = new DataLayer();
+		
+		// Grab Po Lines
+		List<PoLine> lines = layer.grabLines();
+		req.getSession().setAttribute("lines", lines);
+		
+		// Grab Purchase Orders
+		List<PurchaseOrder> orders = layer.grabOrders();
+		req.getSession().setAttribute("orders", orders);
 		
 		// Grab Clients
 		List<Client> clients = layer.grabClients();
 		req.getSession().setAttribute("clients", clients);
 		
-		// Grab Products
-		List<Product> products = layer.grabProducts();
-		req.getSession().setAttribute("products", products);
+		// Grab Client Types
+		List<ClientType> types = layer.grabTypes();
+		req.getSession().setAttribute("types", types);
 		
-		// Grab Products
+		// Grab Addresses
+		List<Address> addresses = layer.grabAddresses();
+		req.getSession().setAttribute("addresses", addresses);
+		
+		// Grab States
 		List<StateAbbrv> states = layer.grabStates();
 		req.getSession().setAttribute("states", states);
 		
 		// Grab Products
-		List<ClientType> types = layer.grabTypes();
-		req.getSession().setAttribute("types", types);
+		List<Product> products = layer.grabProducts();
+		req.getSession().setAttribute("products", products);
+		
+		// Grab Categories
+		List<ProductCategory> categories = layer.grabCategories();
+		req.getSession().setAttribute("categories", categories);
 		
 		// Lock Data
 		req.getSession().setAttribute("gotData", true);
@@ -97,18 +116,14 @@ public class SpringMVC {
 	//----------------------------------
 	// Redirection Mapping
 	@RequestMapping(value="viewInvoice.do", method=RequestMethod.GET)
-	public ModelAndView getInvoices(){
-		
-		/*
-		 *  Get Invoices (Product Orders) from Database
-		 */
-		
+	public ModelAndView getInvoices() {
 		
 		ModelAndView mv = new ModelAndView("viewInvoice");
 		return mv;
 	}
 	
 	@RequestMapping(value="viewClients.do", method=RequestMethod.GET)
+
 	public ModelAndView getClients(){
 		
 		ModelAndView mv = new ModelAndView("viewClients");
@@ -118,21 +133,12 @@ public class SpringMVC {
 	@RequestMapping(value="viewProducts.do", method=RequestMethod.GET)
 	public ModelAndView getProducts(){
 		
-		/*
-		 *  Get Products from Database
-		 */
-		
-		
 		ModelAndView mv = new ModelAndView("viewProducts");
 		return mv;
 	}
 	
 	@RequestMapping(value="viewReports.do", method=RequestMethod.GET)
-	public ModelAndView getReports(){
-		
-		/*
-		 *  Get Report Options from Prepopulated List?
-		 */
+	public ModelAndView getReports() {
 		
 		ModelAndView mv = new ModelAndView("viewReports");
 		return mv;
