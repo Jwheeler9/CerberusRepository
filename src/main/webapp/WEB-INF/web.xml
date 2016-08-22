@@ -8,7 +8,6 @@
   <servlet>
   	<servlet-name>Master</servlet-name>
   	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  	<load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
   	<servlet-name>Master</servlet-name>

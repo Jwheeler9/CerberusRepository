@@ -89,6 +89,15 @@ public class PurchaseOrder {
 		this.client = client;
 	}
 	
+	public void setLines(Set<PoLine> lines)
+	{
+		this.lines=lines;
+	}
+	
+	public Set<PoLine> getLines()
+	{
+		return lines;
+	}
 	//----------------------------------
 	// Constructors
 	public PurchaseOrder(){
