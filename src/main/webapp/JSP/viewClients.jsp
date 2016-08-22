@@ -193,11 +193,11 @@ $(document).ready(function(){
  				
  				$("#" + id).css("display", "none");
  				$("#" + id).after(	"<tr  class=\"editNow selected\">" +
-								  	"<td>" + curName +  "<input type=\"text\" name=\"editName\"></input></td>" +
-									"<td>" + curEmail + "<input type=\"text\" name=\"editEmail\"></input></td>" + 
-									"<td>" + curContact + "<input type=\"text\" name=\"editContact\"></input></td>" +
-									"<td>" + curPhone + "<input type=\"text\" name=\"editPhone\"></input></td>" + 
-									"<td>" + curFax + "<input type=\"text\" name=\"editFax\"></input></td>" +
+								  	"<td>" + curName +  "<input type=\"text\" id=\"editName\"></input></td>" +
+									"<td>" + curEmail + "<input type=\"text\" id=\"editEmail\"></input></td>" + 
+									"<td>" + curContact + "<input type=\"text\" id=\"editContact\"></input></td>" +
+									"<td>" + curPhone + "<input type=\"text\" id=\"editPhone\"></input></td>" + 
+									"<td>" + curFax + "<input type=\"text\" id=\"editFax\"></input></td>" +
 									"<td>" + states + "</td>" +
 									"<td>" + types + "</td>" +
 									"</tr>"
@@ -208,10 +208,10 @@ $(document).ready(function(){
 				
 				$("#hideMe" + id).css("display", "none");
 				$("#hideMe" + id).after("<tr class=\"editNow selected\">" +
-										"<td>" + curStreet1 +  "<input type=\"text\" name=\"editStreet1\"></input></td>" +
-										"<td>" + curStreet2 +  "<input type=\"text\" name=\"editStreet2\"></input></td>" +
-										"<td>" + curCity +  "<input type=\"text\" name=\"editCity\"></input></td>" +
-										"<td>" + curZip +  "<input type=\"text\" name=\"editZip\"></input></td>" +
+										"<td>" + curStreet1 +  "<input type=\"text\" id=\"editStreet1\"></input></td>" +
+										"<td>" + curStreet2 +  "<input type=\"text\" id=\"editStreet2\"></input></td>" +
+										"<td>" + curCity +  "<input type=\"text\" id=\"editCity\"></input></td>" +
+										"<td>" + curZip +  "<input type=\"text\" id=\"editZip\"></input></td>" +
 										"<td></td>" +
 										"<td><input type=\"button\" id=\"updateClient" + id + "\" class=\"btn btn-primary\" value=\"Update\"></input></td>" +
 										"<td><input type=\"button\" id=\"cancelEdit" + id + "\" class=\"btn btn-primary\" value=\"Cancel\"></input></td>" +
@@ -220,9 +220,69 @@ $(document).ready(function(){
  				
  				$("#updateClient" + id).click(function(){
  		
-		 			alert("UPDATE fired");
+					// Client Line
+					var editClientName = $("#editName").val();
+					var editClientEmail = $("#editEmail").val();
+					var editClientContact = $("#editContact").val();
+					var editClientPhone = $("#editPhone").val();
+					var editClientFax = $("#editFax").val();
+					var editClientState = $("#icState option:selected").text();
+					var editClientType = $("#icType option:selected").text();
+					
+					// Address Line
+					var editAddressSt1 = $("#editStreet1").val();
+					var editAddressSt2 = $("#editStreet2").val();
+					var editAddressCity = $("#editCity").val();
+					var editAddressZip = $("#editZip").val();
+					
+					$(".addressText").html("");
+					
+					$("#" + id).replaceWith("<tr>" + 
+												"<td>" + editClientName + "</td>" +
+												"<td>" + editClientEmail + "</td>" +
+												"<td>" + editClientContact + "</td>" +
+												"<td>" + editClientPhone + "</td>" +
+												"<td>" + editClientFax + "</td>" +
+												"<td>" + editClientState + "</td>" +
+												"<td>" + editClientType + "</td>" +
+											"</tr>"
+					);
+					
+					$("#hideMe" + id).replaceWith("<tr>" + 
+													"<td>" + editAddressSt1 + "</td>" +
+													"<td>" + editAddressSt2 + "</td>" +
+													"<td>" + editCity + "</td>" +
+													"<td>" + editZip + "</td>" +
+													"<td></td>" +
+													"<td><input type=\"button\" id=\"editClient" + id + "\" class=\"btn btn-primary\" value=\"Edit\"></input></td>" +
+													"<td><input type=\"button\" id=\"deleteClient" + id + "\" class=\"btn btn-primary\" value=\"Delete\"></input></td>" +
+												  "</tr>"
+					);
+					
+					$.ajax({
+						url: "http://localhost:7001/IMS/updateClient.do",
+						method: "POST",
+						data: JSON.stringify({ 
+											   imsClientId: id,
+											   clientName: editClientName, 
+											   clientEmail: editClientEmail, 
+											   pointOfContactName: editClientContact,
+											   clientPhone: editClientPhone,
+											   clientFax: editClientFax,
+											   passedStateName: editClientState,
+											   passedClientType: editClientType,
+											   passedAddressStreet1: editAddressSt1,
+											   passedAddressStreet2: editAddressSt2,
+											   passedAddressCity: editAddressCity,
+											   passedAddressZip: editAddressZip
+											}),
+						contentType: "application/json"
+					});
+					
+					$("#" + id).css("display", "table-row");
+		 			$("#hideMe" + id).css("display", "table-row");
+		 			$(".editNow").remove();
 		 			isEditing = false;
-		 		
 		 		});
 		 		
 		 		$("#cancelEdit" + id).click(function(){

@@ -112,6 +112,80 @@ public class SpringMVC {
 		
 		req.getSession().setAttribute("clients", newClients);
 	}
+	@RequestMapping(value="updateClient.do", method=RequestMethod.POST, consumes="application/json")
+	@ResponseBody
+	public void updateClient(HttpServletRequest req, HttpServletResponse resp, @RequestBody Client client){
+		
+		DataLayer layer = new DataLayer();
+		Session session = (Session)layer.getSession();
+		
+		// Pull Client
+		Criteria critera = session.createCriteria(Client.class).add(Restrictions.eq("imsClientId", client.getImsClientId()));
+		Client clientToChange = (Client)critera.uniqueResult();
+		
+		StateAbbrv newState = null;
+		
+		// if the client state does not match the one they passed, find it.
+		if(!(clientToChange.getClientAddress().getState().getStateName().equals(client.getPassedStateName()))){
+			
+			@SuppressWarnings("unchecked")
+			List<StateAbbrv> states = (List<StateAbbrv>)req.getSession().getAttribute("states");
+			
+			for(StateAbbrv s : states){
+				
+				if(s.getStateName().equals(client.getPassedStateName())){
+					
+					newState = s;
+				}
+			}
+		} else {
+			
+			newState = clientToChange.getClientAddress().getState();
+		}
+		
+		ClientType newType = null;
+		
+		// if the client type does not match the one they passed, find it.
+		if(!(clientToChange.getClientType().getClientType().equals(client.getPassedClientType()))){
+			
+			@SuppressWarnings("unchecked")
+			List<ClientType> types = (List<ClientType>)req.getSession().getAttribute("types");
+			
+			for(ClientType t : types){
+				
+				if(t.getClientType().equals(client.getPassedClientType())){
+					
+					newType = t;
+				}
+			}
+		} else {
+			
+			newType = clientToChange.getClientType();
+		}
+		
+		Address clientsAddress = clientToChange.getClientAddress();
+		
+		clientsAddress.setStreetAddress1(client.getPassedAddressStreet1());
+		clientsAddress.setStreetAddress2(client.getPassedAddressStreet2());
+		clientsAddress.setAddressCity(client.getPassedAddressCity());
+		clientsAddress.setAddressZip(client.getPassedAddressZip());
+		clientsAddress.setState(newState);
+
+		layer.changeRecord(clientsAddress);
+		
+		clientToChange.setClientName(client.getClientName());
+		clientToChange.setClientEmail(client.getClientEmail());
+		clientToChange.setPointOfContactName(client.getPointOfContactName());
+		clientToChange.setClientPhone(client.getClientPhone());
+		clientToChange.setClientFax(client.getClientFax());
+		clientToChange.setClientAddress(clientsAddress);
+		clientToChange.setClientType(newType);
+		
+		layer.changeRecord(clientToChange);
+		
+		// Unlock Data to Update Records 
+		req.getSession().setAttribute("gotData", false);
+	}
 	
 	//----------------------------------
 	// Redirection Mapping
