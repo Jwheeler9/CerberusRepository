@@ -21,6 +21,7 @@ head, body, footer{
 	
 	background-color: #ffe6e6;
 	width:100%;
+	text-align:center;
 }
 a {
 	
@@ -56,7 +57,7 @@ tr
 {
 	border:solid 1px black;
 }
-td
+td, th
 {
 	padding:2%;
 }

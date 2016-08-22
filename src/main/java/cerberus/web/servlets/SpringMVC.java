@@ -66,7 +66,7 @@ public class SpringMVC {
 		try {resp.sendRedirect("index.jsp");} catch (IOException e) {e.printStackTrace();}
 	}
 	
-	@RequestMapping(value="/addClient.do", method=RequestMethod.POST, consumes="application/json")
+	@RequestMapping(value="addClient.do", method=RequestMethod.POST, consumes="application/json")
 	@ResponseBody
 	public void persistClient(HttpServletRequest req, HttpServletResponse resp, @RequestBody Client client){
 		
@@ -117,7 +117,7 @@ public class SpringMVC {
 		return mv;
 	}
 	
-	@RequestMapping(value="/viewClients.do", method=RequestMethod.GET)
+	@RequestMapping(value="viewClients.do", method=RequestMethod.GET)
 	public ModelAndView getClients(HttpServletRequest req, HttpServletResponse resp)
 	{
 		if(req.getSession().getAttribute("clients")==null)
@@ -142,7 +142,7 @@ public class SpringMVC {
 		return mv;
 	}
 	
-	@RequestMapping(value="/viewProducts.do", method=RequestMethod.GET)
+	@RequestMapping(value="viewProducts.do", method=RequestMethod.GET)
 	public ModelAndView getProducts(){
 		
 		/*
@@ -154,7 +154,7 @@ public class SpringMVC {
 		return mv;
 	}
 	
-	@RequestMapping(value="/viewReports.do", method=RequestMethod.GET)
+	@RequestMapping(value="viewReports.do", method=RequestMethod.GET)
 	public ModelAndView getReports(HttpServletRequest req, HttpServletResponse resp)
 	{
 		
