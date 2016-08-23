@@ -12,16 +12,12 @@
     <!----> 
 </head>
 <body>
-	<c:choose>
-		<c:when test="${empty gotData}">
-			<c:redirect url="pullData.do"/>
-		</c:when>
-		<c:when test="${gotData eq false}">
-			<c:redirect url="pullData.do"/>
-		</c:when>
-		<c:otherwise></c:otherwise>
-	</c:choose>
-
+	<c:if test="${empty gotData}">
+		<c:redirect url="pullData.do"/>
+	</c:if>
+	<c:if test="${gotData eq false}">
+		<c:redirect url="pullData.do"/>
+	</c:if>
 	<div class="container">
 	<jsp:include page="/JSP/navigation.jsp"/>
 	<br/><br/><br/>		
