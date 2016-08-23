@@ -8,13 +8,13 @@
 	<title>Home</title>
 	<!--CSS-->
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/stylingstockReport.do.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling.css" type="text/css">
     <!----> 
 </head>
 <body>
 	<div class="container">
 		<jsp:include page="/JSP/navigation.jsp"/> 	
-		<h2 class="header">View Products</h2>
+		<h2 class="header">View Profit</h2>
 	</div>
 </body>
 </html>

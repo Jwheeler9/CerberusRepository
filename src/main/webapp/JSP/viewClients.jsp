@@ -10,12 +10,12 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.css"/>
 	<link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/dataTable.css" type="text/css">
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling1.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling.css" type="text/css">
     <!----> 
 </head>
 <body>
 	<div class="container">
-		<jsp:include page="/JSP/navigation.jsp"/> 	
+		<jsp:include page="/JSP/navigation.jsp"/>
 	</div>
 	<br/><br/>
 	<div id="dataTable" class="container clear-top" >
@@ -118,7 +118,7 @@ $(document).ready(function(){
 
 	var t = $("#clientTable").DataTable({
     	"dom": 'frtp',
-    	"lengthMenu": [ 20 ],
+    	"lengthMenu": [ 19 ],
     	"pagingType": "numbers",
     	"ordering": false
  	});
@@ -217,6 +217,8 @@ $(document).ready(function(){
 										"<td><input type=\"button\" id=\"cancelEdit" + id + "\" class=\"btn btn-primary\" value=\"Cancel\"></input></td>" +
 										"</tr>"
  				);
+ 				
+ 				$("input[type=\"text\"]").css("width", "100%");
  				
  				$("#updateClient" + id).click(function(){
  		
@@ -394,7 +396,8 @@ $(document).ready(function(){
 											  "<td></td>" +  
 										  "</tr>" +
 										  "<tr id=\"clientSlot\" class=\"noSort\"></tr>");
-									  
+										  
+			$("input[type=\"text\"]").css("width", "100%");						  
 		}
 	});
 	
