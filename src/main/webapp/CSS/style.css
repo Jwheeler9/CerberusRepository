@@ -1,4 +1,10 @@
 /* ----------------------  Id Selectors ---------------------- */
+body
+{
+	overflow:auto;
+	font-style:Times New Romans;
+	font-size:14px;
+}
 #plusField, #minusField {
 	
 	width: 25%;
@@ -118,4 +124,39 @@ tbody td {
 	background-color: #f2f2f2;
 	text-align: left;
 	font-size: 1.25em;
+}
+
+.close
+{
+	text-align:right;
+	cursor:pointer;
+}
+.cover
+{
+	position:fixed;
+	width:100%;
+	height:100%;
+	top:0%;
+	background-color:black;	
+	opacity:.8;
+	z-index:1;
+}
+
+.form
+{
+	position:fixed;
+	border:solid 1px black;
+	border-radius:15px;
+	background-color:	 #7575a3;
+	width:60%;
+	margin-left:20%;
+	margin-right:20%;
+	padding:2%;
+	top:20%;
+	opacity:1;
+	z-index:2;
+}
+.form,.cover
+{
+	display:none;
 }

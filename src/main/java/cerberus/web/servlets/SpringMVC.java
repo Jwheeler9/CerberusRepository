@@ -34,7 +34,7 @@ public class SpringMVC {
 	// Background Processes (No Redirection)
 	@RequestMapping(value="pullData.do", method=RequestMethod.GET)
 	public void getData(HttpServletRequest req, HttpServletResponse resp){
-		
+		System.out.println("LOADING DATA");
 		DataLayer layer = new DataLayer();
 		
 		// Set Current Path
@@ -244,6 +244,24 @@ public class SpringMVC {
 	
 	@RequestMapping(value="viewProducts.do", method=RequestMethod.GET)
 	public ModelAndView getProducts(HttpServletRequest req){
+		
+		ModelAndView mv = new ModelAndView("viewProducts");
+		req.getSession().setAttribute("path", "/JSP/viewProducts.jsp");
+		return mv;
+	}
+	
+	@RequestMapping(value="addProducts.do", method=RequestMethod.GET)
+	public ModelAndView addProducts(HttpServletRequest req)
+	{
+		
+		ModelAndView mv = new ModelAndView("viewProducts");
+		req.getSession().setAttribute("path", "/JSP/viewProducts.jsp");
+		return mv;
+	}
+	
+	@ResponseBody @RequestMapping("addProducts.do")
+	public ModelAndView addProducts(@RequestBody Data data)
+	{
 		
 		ModelAndView mv = new ModelAndView("viewProducts");
 		req.getSession().setAttribute("path", "/JSP/viewProducts.jsp");

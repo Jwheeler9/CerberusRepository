@@ -7,7 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<!--CSS-->
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/bootstrap.css" type="text/css">
-    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/style.css" type="text/css">
     <!----> 
 </head>
 <body>
