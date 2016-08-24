@@ -16,6 +16,7 @@
     <script type="text/javascript" src="JS/script.js"></script>
 </head>
 <body>
+	<c:out value="${NewProduct.productName} added"/>
 	<div class="container">
 		<jsp:include page="/JSP/navigation.jsp"/>	
 		<h2 class="header">View Products</h2>

@@ -259,10 +259,11 @@ public class SpringMVC {
 		return mv;
 	}
 	
-	@ResponseBody @RequestMapping("addProducts.do")
-	public ModelAndView addProducts(@RequestBody Data data)
+	@RequestMapping(value="addProducts.do", method=RequestMethod.POST, consumes="application/json")
+	@ResponseBody
+	public ModelAndView addProducts(HttpServletRequest req, HttpServletResponse resp, @RequestBody Product product)
 	{
-		
+		req.getSession().setAttribute("NewProduct", product);
 		ModelAndView mv = new ModelAndView("viewProducts");
 		req.getSession().setAttribute("path", "/JSP/viewProducts.jsp");
 		return mv;

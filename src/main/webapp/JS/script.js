@@ -8,7 +8,7 @@ $(document).ready(function()
 				$(".add").hide();
 				$(".cover").fadeIn();
 				$(".form").show();
-				$(body).css("overflow","hidden");
+				$("body").css("overflow","hidden");
 			});
 			
 			$('.close').click(function()
@@ -16,28 +16,33 @@ $(document).ready(function()
 					$(".cover").fadeOut();
 					$(".form").fadeOut();
 					$(".add").show();
-					$(body).css("overflow","auto");
+					$("body").css("overflow","auto");
 				});
 			
 			$('#submitProductForm').submit(function(){
-				var data = {}
-				data["productName"] = $("#productName").val();
-				data["productDescription"] = $("#productDescription").val();
-				data["productWeight"]=$("#productWeight").val();
-				data["currentStock"]=$("#currentStock").val();
+				var product = {}
+				product["productName"] = $("#productName").val();
+				product["productDescription"] = $("#productDescription").val();
+				product["productWeight"]=$("#productWeight").val();
+				product["currentStock"]=$("#currentStock").val();
 				$.ajax({
-			           type: "POST",
-			           contentType : "application/json",
-			           url: "addProducts.do",
-			       		data : JSON.stringify(data),
-			       		dataType : 'json',
+					 	url: "addProducts.do",
+					    type: "POST",
+					    data: JSON.stringify({ 
+					        // Those property names must match the property names of your PromotionDecision  view model
+					        productName: product['productName'], 
+					        productDescription: product['productDescription'], 
+					        productWeight: product['productWeight'],
+					        currentStock:product['currentStock']
+					    }),
+					    contentType: "application/json; charset=utf-8",
 			       		success: function()
 			           {
-			        	   alert("Product named "+" data['productName'] "+"added");
+			        	   alert("Product named <c:out value='${NewProduct.productName}'/> added");
 			        	   // show response from the php script.
 			           }
 			         });
-			event.preventDefault();
+				event.preventDefault();
 			});
 		}
 );
