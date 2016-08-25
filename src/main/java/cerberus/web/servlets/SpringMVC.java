@@ -261,12 +261,16 @@ public class SpringMVC {
 	
 	@RequestMapping(value="addProducts.do", method=RequestMethod.POST, consumes="application/json")
 	@ResponseBody
-	public ModelAndView addProducts(HttpServletRequest req, HttpServletResponse resp, @RequestBody Product product)
+	public Product addProducts(HttpServletRequest req, HttpServletResponse resp, @RequestBody Product product)
 	{
-		req.getSession().setAttribute("NewProduct", product);
+		DataLayer layer = new DataLayer();
+		layer.makeRecord(product);
+		System.out.println("product saved");
+		return product;
+	/*	req.getSession().setAttribute("NewProduct", product);
 		ModelAndView mv = new ModelAndView("viewProducts");
 		req.getSession().setAttribute("path", "/JSP/viewProducts.jsp");
-		return mv;
+		return mv;*/
 	}
 	
 	@RequestMapping(value="viewReports.do", method=RequestMethod.GET)

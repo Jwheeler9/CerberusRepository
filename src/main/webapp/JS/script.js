@@ -36,11 +36,18 @@ $(document).ready(function()
 					        currentStock:product['currentStock']
 					    }),
 					    contentType: "application/json; charset=utf-8",
-			       		success: function()
+			       		success: function(data, status)
 			           {
-			        	   alert("Product named <c:out value='${NewProduct.productName}'/> added");
+			       			
+			        	   alert("Product named " + data.productName+" added");
+			        	   
 			        	   // show response from the php script.
-			           }
+			        	   
+			           },
+			           failure:function(data)
+						{
+							alert("Product failed to be added");
+						}
 			         });
 				event.preventDefault();
 			});

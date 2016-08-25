@@ -27,7 +27,7 @@
 				<c:choose>
 					<c:when test="${not empty products}">
 						<c:remove var="loading"/>
-						<table>
+						<table class="table">
 							<tr>
 								<th>Product Name</th>
 								<th>Product Description</th>
