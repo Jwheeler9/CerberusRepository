@@ -68,6 +68,15 @@ public class DataLayer {
 		tx.commit();
 	}
 	
+	public void deleteRecord(Object _obj){
+		
+		Transaction tx = session.beginTransaction();
+		
+		dao.deleteRecord(_obj);
+		
+		tx.commit();
+	}
+	
 	//----------------------------------
 	// Queries (Pull)
 	public List<PoLine> grabLines(){

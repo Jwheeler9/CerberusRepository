@@ -33,7 +33,7 @@ public class SpringMVC {
 	//----------------------------------
 	// Background Processes (No Redirection)
 	@RequestMapping(value="pullData.do", method=RequestMethod.GET)
-	public void getData(HttpServletRequest req, HttpServletResponse resp){
+	public ModelAndView getData(HttpServletRequest req, HttpServletResponse resp){
 		System.out.println("LOADING DATA");
 		DataLayer layer = new DataLayer();
 		
@@ -75,10 +75,13 @@ public class SpringMVC {
 		// Lock Data
 		req.getSession().setAttribute("gotData", true);
 		
-		try {
+		ModelAndView mv = new ModelAndView("viewProducts");
+		req.getSession().setAttribute("path", "/JSP/viewProducts.jsp");
+		return mv;
+		/*try {
 				
 			resp.sendRedirect((String)(req.getSession().getAttribute("path")));
-		} catch (IOException e) {e.printStackTrace();}
+		} catch (IOException e) {e.printStackTrace();}*/
 	}
 	
 	@RequestMapping(value="grabType.do", method=RequestMethod.GET)
@@ -259,14 +262,17 @@ public class SpringMVC {
 		return mv;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="addProducts.do", method=RequestMethod.POST, consumes="application/json")
 	@ResponseBody
-	public Product addProducts(HttpServletRequest req, HttpServletResponse resp, @RequestBody Product product)
+	public List<Product> addProducts(HttpServletRequest req, HttpServletResponse resp, @RequestBody Product product)
 	{
 		DataLayer layer = new DataLayer();
 		layer.makeRecord(product);
 		System.out.println("product saved");
-		return product;
+		List<Product> products = layer.grabProducts();
+		req.getSession().setAttribute("products", products);
+		return (List<Product>)req.getSession().getAttribute("products");
 	/*	req.getSession().setAttribute("NewProduct", product);
 		ModelAndView mv = new ModelAndView("viewProducts");
 		req.getSession().setAttribute("path", "/JSP/viewProducts.jsp");

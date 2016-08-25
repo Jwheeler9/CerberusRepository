@@ -1,9 +1,9 @@
 /* ----------------------  Id Selectors ---------------------- */
 body
 {
-	overflow:auto;
 	font-style:Times New Romans;
 	font-size:14px;
+	overflow-y:scroll;
 }
 #plusField, #minusField {
 	
@@ -152,9 +152,10 @@ tbody td {
 	margin-left:20%;
 	margin-right:20%;
 	padding:2%;
-	top:20%;
+	top:1%;
 	opacity:1;
 	z-index:2;
+	overflow-y:scroll;
 }
 .form,.cover
 {

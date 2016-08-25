@@ -62,16 +62,37 @@
 	<div class="cover">
 		
 	</div>
-	<form class="form" id="submitProductForm" name="submitProductForm">
+	<form class="form" id="addProductForm" name="addProductForm">
 		<p class="close">X</p><h2>Add Product</h2>
 		<label for="productName">Product Name</label>
 		<input type="text" name="productName" id="productName"/>
-		<label for="">Product Description</label>
+		
+		<label for="productDescritpion">Product Description</label>
 		<input type="text" name="productDescription" id="productDescription"/>
+		
+		<label for="shortName">Short Name</label>
+		<input type="text" name="shortName" id="shortName"/>
+		
+		<label for="productName">Unit Cost</label>
+		<input type="text" name="unitCost" id="unitCost"/>
+		
+		<label for="p">Pack Size</label>
+		<input type="text" name="packSize" id="packSize"/>
+		
+		<label for="p">Reorder Quantity</label>
+		<input type="text" name="reorderQuantity" id="reorderQuantity"/>
+		
+		<label for="">Current Stock</label>
+		<input type="text" name="currentStock" id="currentStock"/>
+		
+		<label for="">Retail Price</label>
+		<input type="text" name="retailPrice" id="retailPrice"/>
+		
 		<label for="">Product Weight</label>
 		<input type="text" name="productWeight" id="productWeight"/>
-		<label for="">Current Stock</label>
-		<input type="text" name="currentStock" id="currentStock"/><br>
+		
+	<!-- 	<label for="">Product Image</label>
+		<input type="file" name="productImage" id="productImage"/>-->
 		<button id="submitProduct" name="submitProduct">Add Product</button>
 	</form>
 </body>

@@ -47,7 +47,10 @@ public class DAO {
 		
 		session.update(_obj);
 	}
-	
+	public void deleteRecord(Object _obj){
+		
+		session.delete(_obj);
+	}
 	//----------------------------------
 	// Queries (Pull)
 	@SuppressWarnings("unchecked")
