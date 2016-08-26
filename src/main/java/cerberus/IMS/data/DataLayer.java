@@ -67,6 +67,14 @@ public class DataLayer {
 		
 		tx.commit();
 	}
+	public void removeRecord(Object _obj){
+		
+		Transaction tx = session.beginTransaction();
+		
+		dao.deleteRecord(_obj);
+		
+		tx.commit();
+	}
 	
 	//----------------------------------
 	// Queries (Pull)

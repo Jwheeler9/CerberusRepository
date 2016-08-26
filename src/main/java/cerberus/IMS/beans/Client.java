@@ -1,5 +1,6 @@
 package cerberus.ims.beans;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="IMS_CLIENT")
+@org.hibernate.annotations.Entity(dynamicUpdate=true)
 public class Client {
 	
 	//----------------------------------
@@ -50,7 +52,7 @@ public class Client {
 
 	//----------------------------------
 	// Realationship Mapping
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="ADDRESS_ID", nullable=false, unique=true)
 	private Address clientAddress;
 	

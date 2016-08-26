@@ -1,17 +1,13 @@
 /* ----------------------  Id Selectors ---------------------- */
-#plusField, #minusField {
+#clientTable{
 	
-	width: 25%;
-	float: left;
-	text-align: left;
-	font-size: 1.4em;
+	width: 100%;
 }
-#saveSlot {
+#addClient, #cancelAdd {
 	
-	width: 50%;
-	float: right;
-	text-align: right;
-	font-size: 1.4em;
+	float: left;
+	font-size: 1.25em;
+	margin-left: 25em;
 }
 #dataTable {
 	
@@ -19,12 +15,31 @@
 }
 #noResults {
 	
-	font-size: 2.5em;
+	font-size: 2em;
 	font-weight: bolder;
 	text-decoration: underline;
 }
 
 /* --------------------- Class Selectors --------------------- */
+.detailsTab {
+	
+	font-size: 0.90em;
+	text-align: center;
+}
+td.details-control {
+	
+    background: url('../Images/plus.png') no-repeat center center;
+    background-size: 26px 26px;
+    background-color: #f2f2f2;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0);
+}
+td.shown {
+	
+    background: url('../Images/minus.png') no-repeat center center !important;
+    background-color: #f2f2f2;
+    color: rgba(0, 0, 0, 0);
+}
 .invoiceTable {
 
   	width: 100%;
@@ -52,14 +67,6 @@
 	
 	background-color: #e6e6e6 !important;
 }
-.paginate_button current {
-	
-	font-size: 0.85em;
-}
-.paginate_button{
-	
-	font-size: 0.85em;
-}
 .btn {
 	
 	background-color: #ccccff;
@@ -82,6 +89,19 @@
 .table-hover > tbody > tr:hover !important {
     
     background-color: #e6e6e6 !important;
+}
+a.current {
+	
+	font-weight: bolder;
+	font-size: 1.1em;
+	background: #4d0099 !important;
+	color: #ccccff !important;
+}
+a.paginate_button {
+	
+	font-size: 1.1em;
+	background: #ccccff !important;
+	color: #4d0099 !important;
 }
 
 /* ---------------------- Tag Selectors ---------------------- */
@@ -111,11 +131,11 @@ th {
 	background-color: #f2f2f2;
 	border-style: hidden;
 	text-align: left;
-	font-size: 1.25em;
+	font-size: 1.1em;
 }
 tbody td {
 	
 	background-color: #f2f2f2;
 	text-align: left;
-	font-size: 1.25em;
+	font-size: 1.1em;
 }

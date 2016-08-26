@@ -66,7 +66,7 @@ public class Product
 	
 	//----------------------------------
 	// Accessors
-	public int getProductUpc() {
+	public int getProductUPC() {
 		return productUPC;
 	}
 	public void setProductUPC(int productUPC) {

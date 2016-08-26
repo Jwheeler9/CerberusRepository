@@ -13,22 +13,26 @@
     <link rel="stylesheet" href="${pageContext.servletContext.contextPath}/CSS/styling.css" type="text/css">
     <!----> 
 </head>
-<body>
+<body id="ajaxBod">
 	<div class="container">
 		<jsp:include page="/JSP/navigation.jsp"/>
 	</div>
 	<br/><br/>
+	<input type="button" id="addClient" value="New" class="btn btn-primary"/>
+	<input type="button" id="cancelAdd" value="Cancel" class="btn btn-primary hideMe"/>
 	<div id="dataTable" class="container clear-top" >
 		<table id="clientTable" class="table table-hover">
-			<col width="14%">
-		    <col width="17%">
-		    <col width="14%">
-		    <col width="14%">
-		    <col width="14%">
-		    <col width="14%">
-		    <col width="13%">
+			<col width="5%">
+	  		<col width="12%">
+	  		<col width="13%">
+	  		<col width="16%">
+	  		<col width="13%">
+	  		<col width="15%">
+	  		<col width="13%">
+	  		<col width="13%">
 			<thead>
 				<tr>
+					<th></th>
 					<th>Name</th>
 					<th>Email</th>
 					<th>Contact</th>
@@ -38,414 +42,353 @@
 					<th>Type</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr id="clientSlot" class="initSlot no-sort" style="display:none;">
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td></td>
+			<tfoot>
+				<tr class="newClientSlot hideMe">
+					<td class="noDetails"></td>
+					<td><input type="text" id="icName"/></td> 
+					<td><input type="text" id="icEmail"/></td> 
+					<td><input type="text" id="icContact"/></td> 
+					<td><input type="text" id="icPhone"/></td> 
+					<td><input type="text" id="icFax"/></td>
 					<td id="stateBlock">
-						<select id="icState" class="btn btn-primary">
-		            	<c:forEach var="s" items="${states}">
-		        			<option value="${s.stateName}"><c:out value="${s.stateName}"></c:out></option>
-		        		</c:forEach> 
-			            </select>
-		            </td>
-					<td id="typeBlock">
-						<select id="icType" class="btn btn-primary">
-						<c:forEach var="t" items="${types}">
-		        			<option value="${t.clientType}"><c:out value="${t.clientType}"></c:out></option>
-		        		</c:forEach> 
-			            </select>
-					</td>
+					<select id="icState" class="btn btn-primary">
+						<option disabled selected value=""> -- Select a State -- </option>
+				       	<c:forEach var="s" items="${states}">
+				   			<option value="${s.stateName}"><c:out value="${s.stateName}"></c:out></option>
+				   		</c:forEach> 
+				    </select>
+				    </td> 
+				    <td id="typeBlock">
+					<select id="icType" class="btn btn-primary">
+						<option disabled selected value=""> -- Select a Type -- </option>
+				       	<c:forEach var="t" items="${types}">
+				   			<option value="${t.clientType}"><c:out value="${t.clientType}"></c:out></option>
+				   		</c:forEach> 
+				    </select>
+				    </td>
 				</tr>
-				<c:forEach var="c" items="${clients}">
-				<tr id="${c.imsClientId}">
-					<td id="name${c.imsClientId}"><c:out value="${c.clientName}"></c:out></td>
-					<td id="email${c.imsClientId}"><c:out value="${c.clientEmail}"></c:out></td>
-					<td id="contact${c.imsClientId}"><c:out value="${c.pointOfContactName}"></c:out></td>
-					<td id="phone${c.imsClientId}"><c:out value="${c.clientPhone}"></c:out></td>
-					<td id="fax${c.imsClientId}"><c:out value="${c.clientFax}"></c:out></td>
-					<td id="state${c.imsClientId}"><c:out value="${c.clientAddress.state.stateName}"></c:out></td>
-					<td id="type${c.imsClientId}"><c:out value="${c.clientType.clientType}"></c:out></td>
+				<tr class="newClientSlot hideMe">
+					<th class="noDetails"></th>
+					<th>Address</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th></th>
 				</tr>
-				<tr id="hideMe${c.imsClientId}" class="hideMe subfield"> 
-			      	<td id="street1${c.imsClientId}"><c:out value="${c.clientAddress.streetAddress1}"></c:out></td>
-			      	<td id="street2${c.imsClientId}"><c:out value="${c.clientAddress.streetAddress2}"></c:out></td>
-			      	<td id="city${c.imsClientId}"><c:out value="${c.clientAddress.addressCity}"></c:out></td>
-			      	<td id="zip${c.imsClientId}"><c:out value="${c.clientAddress.addressZip}"></c:out></td>
-			      	<td></td>
-			        <td><input type="button" id="editClient${c.imsClientId}" class="btn btn-primary" value="Edit"/></td>
-			        <td><input type="button" id="deleteClient${c.imsClientId}" class="btn btn-primary" value="Delete"/></td>
-		        </tr>
-				</c:forEach>
-			</tbody>
+				<tr class="newClientSlot hideMe">
+					<th class="noDetails"></th>
+					<th>Street 1</th>
+					<th>Street 2</th>
+					<th>City</th>
+					<th>Zip</th>
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr class="newClientSlot hideMe">
+					<td class="noDetails"></td>
+					<td><input type="text" id="iaStreet1"/></td> 
+					<td><input type="text" id="iaStreet2"/></td> 
+					<td><input type="text" id="iaCity"/></td> 
+					<td><input type="text" id="iaZip"/></td> 
+					<td></td>
+					<td></td>
+					<td><input type="button" id="saveClient" value="Save" class="btn btn-primary"/></td>
+				</tr>
+			</tfoot>
 		</table>
 	</div>
-	<div class="container">
-		<span id="plusField">
-			<input type="button" id="newClient" class="btn btn-primary" value="+"/>
-		</span>
-		<span id="minusField">
-			<input type="button" id="rollbackView" class="btn btn-primary" value="-"/>
-		</span>
-		<span id="saveSlot">
-			<input type="button" id="commitClient" class="btn btn-primary" value="Save"/>
-		</span>
+	
+	<!-- Edit Modal -->
+	<div id="editModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h3 class="modal-title">Fix Client</h3>
+	      </div>
+	      <div class="modal-body">
+	        <p>We can rebuild them. We have the technology. We can make them better than they were. Better, stronger, faster.</p>
+	        <hr>
+	        <h4 class="header">Client</h4>
+	        <input type="text" id="editId" class="form-control" placeholder="Id" disabled/> 
+	        <input type="text" id="editName" class="form-control" placeholder="Name"/> 
+			<input type="text" id="editEmail" class="form-control" placeholder="Email"/> 
+			<input type="text" id="editContact" class="form-control" placeholder="Contact"/> 
+			<input type="text" id="editPhone" class="form-control" placeholder="Phone"/>
+			<input type="text" id="editFax" class="form-control" placeholder="Fax"/>
+			<select id="editType" class="btn btn-primary form-control">
+				<option disabled selected value=""> -- Select a Type -- </option>
+				<c:forEach var="t" items="${types}">
+					<option value="${t.clientType}"><c:out value="${t.clientType}"></c:out></option>
+				</c:forEach> 
+		    </select>
+			<hr>
+			<h4 class="header">Address</h4>
+			<input type="text" id="editStreet1" class="form-control" placeholder="Street 1" /> 
+			<input type="text" id="editStreet2" class="form-control" placeholder="Street 2" /> 
+			<input type="text" id="editCity" class="form-control" placeholder="City" />
+		  	<select id="editState" class="btn btn-primary form-control">
+				<option disabled selected value=""> -- Select a State -- </option>
+		     	<c:forEach var="s" items="${states}">
+		   	  		<option value="${s.stateName}"><c:out value="${s.stateName}"></c:out></option>
+		   	  	</c:forEach> 
+	      	</select>
+	      	<input type="text" id="editZip" class="form-control" placeholder="Zip"/>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-default" data-dismiss="modal" id="confirmEdit">Commit!</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal" id="denyEdit">Rollback.</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	<!-- Delete Modal -->
+	<div id="deleteModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Confirm Deletion</h4>
+	      </div>
+	      <div class="modal-body">
+	        <p>This client is at your mercy and your action cannot be undone.</p>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-default" data-dismiss="modal" id="confirmDel">Destroy them!</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal" id="denyDel">Spare them.</button>
+	      </div>
+	    </div>
+	  </div>
 	</div>
 </body>
+
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 
 	//-------------------------------------------------------------------------------------
-	// Document init
-	
+	// Document Init
+
 	var states = $("#stateBlock").html();
 	var types = $("#typeBlock").html();
-	var isAdding = false;
-	var isEditing = false; 
 	var id;
-	
-	$(".hideMe").css("display", "none");
-	$("#minusField").css("display", "none");
-	$("#saveSlot").css("display", "none");
 	
 	//-------------------------------------------------------------------------------------
 	// Building the jQuery DataTable
-
-	var t = $("#clientTable").DataTable({
+	
+	function format (client) {
+	    
+	    return  "<table class=\"detailsTab\" style=\"width:100%\">" +
+	    			"<col width=\"4.25%\">"  +
+			  		"<col width=\"12.75%\">" +
+			  		"<col width=\"13%\">" +
+			  		"<col width=\"16%\">" +
+			  		"<col width=\"13%\">" +
+			  		"<col width=\"15%\">" +
+			  		"<col width=\"13%\">" +
+			  		"<col width=\"13%\">" +
+			        "<tr>" +
+			        	"<td>" + client.imsClientId + "</td>" +
+			            "<td colspan=5>" + client.clientAddress.streetAddress1 + "&nbsp&nbsp&nbsp&nbsp" +
+			            				   client.clientAddress.streetAddress2 + "&nbsp&nbsp&nbsp&nbsp" +
+			            				   client.clientAddress.addressCity + ", " + client.clientAddress.state.stateAbbrv + "&nbsp&nbsp&nbsp&nbsp" +
+			            				   client.clientAddress.addressZip + "</td>" +
+			           	"<td><input type=\"button\" id='editClient" + client.imsClientId + "' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#editModal\" value=\"Edit\"/></td>" + 
+						"<td><input type=\"button\" id='deleteClient" + client.imsClientId  + "' class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#deleteModal\" value=\"Delete\"/></td>"
+			        "</tr>" +
+		        "</table>";
+	}
+	
+	var table = $("#clientTable").DataTable({
+    	
+    	"ajax": {
+    		"url": "http://localhost:7001/IMS/grabClients.do", 
+    		"dataSrc": ""
+    	},
     	"dom": 'frtp',
-    	"lengthMenu": [ 19 ],
+    	"lengthMenu": [ 6 ],
     	"pagingType": "numbers",
-    	"ordering": false
+    	"columns": [
+            {
+                "className":      'details-control',
+                "orderable":      false,
+                "data":           "imsClientId",
+                "defaultContent": ''
+            },
+            { "data": "clientName" },
+            { "data": "clientEmail" },
+            { "data": "pointOfContactName" },
+            { "data": "clientPhone" },
+            { "data": "clientFax" },
+            { "data": "clientAddress.state.stateName" },
+            { "data": "clientType.clientType" }
+        ],
  	});
  	
+ 	$(".details-control").css("color", "rgba(0, 0, 0, 0)");
+ 	$(".noDetails").removeClass("details-control");
+ 
  	//-------------------------------------------------------------------------------------
- 	// Select the Client that is clicked on && show address
- 	
- 	$('tbody tr').click(function() {
+ 	// Show Extra Details
+ 		 	
+ 	$("#clientTable tbody").on("click", "td.details-control", function () {
+ 		 
+ 		var element = $(this); 
+ 			 
+ 		if(id !== $(element).text()){
  		
- 		if(isEditing === false){
- 		
-	 		id = $(this).attr('id');
-	 		
-	 		if($("#" + id).hasClass("subfield") === false){
-	 			
-	 			if($("#" + id).hasClass("selected") === false){ 
-					 			
-		 			// Disable Currently Selected && Hide Subfields
-				    $(".subfield").addClass("hideMe");
-				    $(".selected").removeClass("selected");
-				    $(".shown").removeClass("shown");
-		 			
-		 			// Open Related Subfield
-		 			$("#hideMe" + id).removeClass("hideMe");
-		 			$("#hideMe" + id).addClass("shown");
-		 			
-		 			// Update View
-		 			$(".hideMe").css("display", "none");
-				    $(".shown").css("display", "table-row");
-				    
-				    // Highlight Selected Fields
-				    $("#" + id).addClass("selected");
-				    $("#hideMe" + id).addClass("selected");
-			    }
-			    else {
-			    	
-			    	// Hide Subfield for Reselecting Parent When Showing
-				    $(".subfield").addClass("hideMe");
-				    $(".selected").removeClass("selected");
-				    $(".shown").removeClass("shown");
-				    
-				    // Update View
-		 			$(".hideMe").css("display", "none");
-			    }
-	 		}
+	 		table.row($(".shown")).child.hide();
+	 		$(".shown").removeClass("shown");
  		}
- 	 		
- 		//---------------------------------------------------------------------------------
-		// Change the text in the table to text boxes so the user can edit a client
- 		$("#editClient" + id).click(function(){
- 			
- 			if(isAdding === true){
- 					
-				stopAdd();
-			}
- 			
- 			if(isEditing === false){
- 			
- 				isEditing = true;
- 				
- 				var curName = $("#name" + id).text();
- 				var curEmail = $("#email" + id).text();
- 				var curContact = $("#contact" + id).text();
- 				var curPhone = $("#phone" + id).text();
- 				var curFax = $("#fax" + id).text();
- 				var curState = $("#state" + id).text();
- 				var curType = $("#type" + id).text();
- 				var curStreet1 = $("#street1" + id).text();
- 				var curStreet2 = $("#street2" + id).text();
- 				var curCity = $("#city" + id).text();
- 				var curZip = $("#zip" + id).text();
- 				
- 				$("#" + id).css("display", "none");
- 				$("#" + id).after(	"<tr  class=\"editNow selected\">" +
-								  	"<td>" + curName +  "<input type=\"text\" id=\"editName\"></input></td>" +
-									"<td>" + curEmail + "<input type=\"text\" id=\"editEmail\"></input></td>" + 
-									"<td>" + curContact + "<input type=\"text\" id=\"editContact\"></input></td>" +
-									"<td>" + curPhone + "<input type=\"text\" id=\"editPhone\"></input></td>" + 
-									"<td>" + curFax + "<input type=\"text\" id=\"editFax\"></input></td>" +
-									"<td>" + states + "</td>" +
-									"<td>" + types + "</td>" +
-									"</tr>"
-				);
+ 		  
+        var tr = $(this);
+        var row = table.row(tr);
+        
+        if ( row.child.isShown() ) {
+            
+            tr.removeClass("shown");
+            row.child.hide();
+        }
+        else {
+           	
+            tr.addClass("shown");
+            row.child( format(row.data())).show();
+            id = $(tr).text();
+        }
+        
+        $(".shown").attr("style", "background-size: 26px 26px !important");
+        $(".shown").css("color", "rgba(0, 0, 0, 0)");
+         
+        //---------------------------------------------------------------------------------
+		// Enable Editing && Prepopulate Modal
+			
+		$("#clientTable").on("click", "#editClient" + id, function(){
+	 		
+	 		$.get("http://localhost:7001/IMS/grabClient.do?q=" + id, function(data){
+	 		
+		 		// Client
+		 		$("#editId").val(id);
+		 		$("#editName").val(data.clientName);
+				$("#editEmail").val(data.clientEmail);
+				$("#editContact").val(data.pointOfContactName);
+				$("#editPhone").val(data.clientPhone);
+				$("#editFax").val(data.clientFax);
+				$("#editType").val(data.clientType.clientType);
+								
+				// Address
+				$("#editStreet1").val(data.clientAddress.streetAddress1);
+				$("#editStreet2").val(data.clientAddress.streetAddress2);
+				$("#editCity").val(data.clientAddress.addressCity);
+				$("#editState").val(data.clientAddress.state.stateName);
+				$("#editZip").val(data.clientAddress.addressZip);
+	 		});
+	 	
+ 			//---------------------------------------------------------------------------------
+			// Edit Client -- Update Database
+ 	
+			$("#confirmEdit").click(function(){
+			
+			// Client Line
+			var editClientName = $("#editName").val();
+			var editClientEmail = $("#editEmail").val();
+			var editClientContact = $("#editContact").val();
+			var editClientPhone = $("#editPhone").val();
+			var editClientFax = $("#editFax").val();
+			var editClientState = $("#editState option:selected").text();
+			var editClientType = $("#editType option:selected").text();
+						
+			// Address Line
+			var editAddressSt1 = $("#editStreet1").val();
+			var editAddressSt2 = $("#editStreet2").val();
+			var editAddressCity = $("#editCity").val();
+			var editAddressZip = $("#editZip").val();
+	
+				$.ajax({
+					url: "http://localhost:7001/IMS/updateClient.do",
+					method: "POST",
+					data: JSON.stringify({ 
+										   imsClientId: id,
+										   clientName: editClientName, 
+										   clientEmail: editClientEmail, 
+										   pointOfContactName: editClientContact,
+										   clientPhone: editClientPhone,
+										   clientFax: editClientFax,
+										   passedStateName: editClientState,
+										   passedClientType: editClientType,
+										   passedAddressStreet1: editAddressSt1,
+										   passedAddressStreet2: editAddressSt2,
+										   passedAddressCity: editAddressCity,
+										   passedAddressZip: editAddressZip
+										}),
+					contentType: "application/json",
+					success: function(){
+						
+						alert("Client successfully edited! Well done.");
+						location.reload();
+					}
+				});
+			});
+		});
+		
+		//---------------------------------------------------------------------------------
+		// Trigger Modal for Delete	
+			
+		$("#clientTable").on("click", "#deleteClient" + id, function(){
+			
+			$("#confirmDel").click(function(){
 				
-				$("#icState").val(curState);
-				$("#icType").val(curType);
-				
-				$("#hideMe" + id).css("display", "none");
-				$("#hideMe" + id).after("<tr class=\"editNow selected\">" +
-										"<td>" + curStreet1 +  "<input type=\"text\" id=\"editStreet1\"></input></td>" +
-										"<td>" + curStreet2 +  "<input type=\"text\" id=\"editStreet2\"></input></td>" +
-										"<td>" + curCity +  "<input type=\"text\" id=\"editCity\"></input></td>" +
-										"<td>" + curZip +  "<input type=\"text\" id=\"editZip\"></input></td>" +
-										"<td></td>" +
-										"<td><input type=\"button\" id=\"updateClient" + id + "\" class=\"btn btn-primary\" value=\"Update\"></input></td>" +
-										"<td><input type=\"button\" id=\"cancelEdit" + id + "\" class=\"btn btn-primary\" value=\"Cancel\"></input></td>" +
-										"</tr>"
- 				);
- 				
- 				$("input[type=\"text\"]").css("width", "100%");
- 				
- 				$("#updateClient" + id).click(function(){
- 		
-					// Client Line
-					var editClientName = $("#editName").val();
-					var editClientEmail = $("#editEmail").val();
-					var editClientContact = $("#editContact").val();
-					var editClientPhone = $("#editPhone").val();
-					var editClientFax = $("#editFax").val();
-					var editClientState = $("#icState option:selected").text();
-					var editClientType = $("#icType option:selected").text();
+				$.get("http://localhost:7001/IMS/deleteClient.do?q=" + id, function(){
 					
-					// Address Line
-					var editAddressSt1 = $("#editStreet1").val();
-					var editAddressSt2 = $("#editStreet2").val();
-					var editAddressCity = $("#editCity").val();
-					var editAddressZip = $("#editZip").val();
-					
-					$(".addressText").html("");
-					
-					$("#" + id).replaceWith("<tr>" + 
-												"<td>" + editClientName + "</td>" +
-												"<td>" + editClientEmail + "</td>" +
-												"<td>" + editClientContact + "</td>" +
-												"<td>" + editClientPhone + "</td>" +
-												"<td>" + editClientFax + "</td>" +
-												"<td>" + editClientState + "</td>" +
-												"<td>" + editClientType + "</td>" +
-											"</tr>"
-					);
-					
-					$("#hideMe" + id).replaceWith("<tr>" + 
-													"<td>" + editAddressSt1 + "</td>" +
-													"<td>" + editAddressSt2 + "</td>" +
-													"<td>" + editCity + "</td>" +
-													"<td>" + editZip + "</td>" +
-													"<td></td>" +
-													"<td><input type=\"button\" id=\"editClient" + id + "\" class=\"btn btn-primary\" value=\"Edit\"></input></td>" +
-													"<td><input type=\"button\" id=\"deleteClient" + id + "\" class=\"btn btn-primary\" value=\"Delete\"></input></td>" +
-												  "</tr>"
-					);
-					
-					$.ajax({
-						url: "http://localhost:7001/IMS/updateClient.do",
-						method: "POST",
-						data: JSON.stringify({ 
-											   imsClientId: id,
-											   clientName: editClientName, 
-											   clientEmail: editClientEmail, 
-											   pointOfContactName: editClientContact,
-											   clientPhone: editClientPhone,
-											   clientFax: editClientFax,
-											   passedStateName: editClientState,
-											   passedClientType: editClientType,
-											   passedAddressStreet1: editAddressSt1,
-											   passedAddressStreet2: editAddressSt2,
-											   passedAddressCity: editAddressCity,
-											   passedAddressZip: editAddressZip
-											}),
-						contentType: "application/json"
-					});
-					
-					$("#" + id).css("display", "table-row");
-		 			$("#hideMe" + id).css("display", "table-row");
-		 			$(".editNow").remove();
-		 			isEditing = false;
-		 		});
-		 		
-		 		$("#cancelEdit" + id).click(function(){
-		 			
-		 			$("#" + id).css("display", "table-row");
-		 			$("#hideMe" + id).css("display", "table-row");
-		 			$(".editNow").remove();
-		 			isEditing = false;
-		 		});
- 			}
- 		});
- 		
- 		//---------------------------------------------------------------------------------
-		// Display a module to confirm the deletion && on true, delete
- 		$("#deleteClient" + id).click(function(){
- 			
- 			alert("delete client on line 172");
- 		});					
+					alert("The act is done... ");
+					location.reload();
+				});
+			});
+		});
     });
     
-    function stopEdit(){
-		 		
-		$("#" + id).css("display", "table-row");
-		$("#hideMe" + id).css("display", "table-row");
-		$(".editNow").remove();
-			
-		// Hide Subfield for Reselecting Parent When Showing
-	    $(".subfield").addClass("hideMe");
-	    $(".selected").removeClass("selected");
-	    $(".shown").removeClass("shown");
-	    
-	    // Update View
-		$(".hideMe").css("display", "none");
-		
-		isEditing = false;
-	}
-    
     //-------------------------------------------------------------------------------------
- 	// Unselect selected clients on pagination
- 	
- 	
- 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 	//---------------------------------------------------------> Broken <----------------------------------------------------------//
- 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 	
- 	
- 	$(".paginate_button").click(function(){
- 		
- 		alert("works?");
- 		
-		$(".shown").removeClass("selected");
-		$(".shown").removeClass("shown");
- 	});
-    
+	// Show Add Client Fields
+	
+    $("#addClient").on("click", function () {
+        
+		$("#addClient").addClass("hideMe");
+		$("#cancelAdd").removeClass("hideMe");
+		$(".newClientSlot").removeClass("hideMe");
+	});	
+	
+	//-------------------------------------------------------------------------------------
+	// Hide Added Client Fields
+	
+	$("#cancelAdd").on("click", function(){
 
-	//-------------------------------------------------------------------------------------
-	// Add text fields to the table so they can add a new client when the '+' is clicked
-	
-	$("#newClient").click(function(){
+		// Reset Input
+		$("#icName").val("");
+		$("#icEmail").val("");
+		$("#icContact").val("");
+		$("#icPhone").val("");
+		$("#icFax").val("");
+		$("#icState").val("");
+		$("#icType").val("");
 		
-		if(isEditing === true){
-			
-			stopEdit();
-		}
-		
-		if(isAdding === false) {
-		
-			isAdding = true;
-			
-			$("#newClient").css("display", "none");
-			$("#plusField").css("display", "none");
-			$("#minusField").css("display", "inline");
-			$("#saveSlot").css("display", "inline");
-			$("#clientSlot").replaceWith( "<tr id=\"inputSlot\">" + 
-											  "<td><input type=\"text\" id=\"icName\"/></td>" + 
-											  "<td><input type=\"text\" id=\"icEmail\"/></td>" + 
-											  "<td><input type=\"text\" id=\"icContact\"/></td>" + 
-											  "<td><input type=\"text\" id=\"icPhone\"/></td>" + 
-											  "<td><input type=\"text\" id=\"icFax\"/></td>" + 
-											  "<td>" + states + "</td><td>" + types + "</td>" + 
-										  "</tr>" +
-										  "<tr class=\"addressText\">" + 
-										  	  "<th>Address</th>" + 
-										  	  "<th></th>" + 
-											  "<th></th>" + 
-											  "<th></th>" + 
-											  "<th></th>" + 
-											  "<th></th>" + 
-											  "<th></th>" + 
-										  "</tr>" +
-										  "<tr class=\"addressText\">" + 
-											  "<th>Street 1</th>" + 
-											  "<th>Street 2</th>" + 
-											  "<th>City</th>" + 
-											  "<th>Zip Code</th>" +
-											  "<th></th>" +
-											  "<th></th>" +
-											  "<th></th>" +   
-										  "</tr>" +
-										  "<tr class=\"addressText\">" + 
-											  "<td><input type=\"text\" id=\"iaStreet1\"/></td>" + 
-											  "<td><input type=\"text\" id=\"iaStreet2\"/></td>" + 
-											  "<td><input type=\"text\" id=\"iaCity\"/></td>" + 
-											  "<td><input type=\"text\" id=\"iaZip\"/></td>" +
-											  "<td></td>" + 
-											  "<td></td>" + 
-											  "<td></td>" +  
-										  "</tr>" +
-										  "<tr id=\"clientSlot\" class=\"noSort\"></tr>");
-										  
-			$("input[type=\"text\"]").css("width", "100%");						  
-		}
+		// Update View
+		$("#addClient").removeClass("hideMe");
+		$("#cancelAdd").addClass("hideMe");
+		$(".newClientSlot").addClass("hideMe");
 	});
 	
 	//-------------------------------------------------------------------------------------
-	// Remove text fields from the table when the user doesn't want to add a client when the 
-	// '-' is clicked
+	// Add Client -- Update Database
 	
-	$("#rollbackView").click(function(){
-		
-		// stopAdd() Functionality
-		
-		$("#minusField").css("display", "none");
-		$("#saveSlot").css("display", "none");
-		
-		$("#inputSlot").remove();
-		$(".addressText").remove();
-		
-		$("#newClient").css("display", "inline");
-		$("#plusField").css("display", "inline");
-		$("#breaks").css("display", "inline");
-		
-		isAdding = false;
-	});
+	$("#saveClient").on("click", function(){
 	
-	function stopAdd() {
-		
-		$("#minusField").css("display", "none");
-		$("#saveSlot").css("display", "none");
-		
-		$("#inputSlot").remove();
-		$(".addressText").remove();
-		
-		$("#newClient").css("display", "inline");
-		$("#plusField").css("display", "inline");
-		$("#breaks").css("display", "inline");
-		
-		isAdding = false;
-	}
-	
-	//-------------------------------------------------------------------------------------
-	// Save the new client && their address to the database when the 'save' is clicked
-	
-	$("#commitClient").click(function(){
-		
-		$("#newClient").css("display", "inline");
-		$("#plusField").css("display", "inline");
-		$("#saveSlot").css("display", "none");
-		
 		// Client Line
 		var inputClientName = $("#icName").val();
 		var inputClientEmail = $("#icEmail").val();
@@ -461,17 +404,19 @@ $(document).ready(function(){
 		var inputAddressCity = $("#iaCity").val();
 		var inputAddressZip = $("#iaZip").val();
 		
-		$(".addressText").html("");
+		// Reset Input
+		$("#icName").val("");
+		$("#icEmail").val("");
+		$("#icContact").val("");
+		$("#icPhone").val("");
+		$("#icFax").val("");
+		$("#icState").val("");
+		$("#icType").val("");
 		
-		$("#inputSlot").replaceWith("<tr>" + 
-										"<td>" + inputClientName + "</td>" +
-										"<td>" + inputClientEmail + "</td>" +
-										"<td>" + inputClientContact + "</td>" +
-										"<td>" + inputClientPhone + "</td>" +
-										"<td>" + inputClientFax + "</td>" +
-										"<td>" + inputClientState + "</td>" +
-										"<td>" + inputClientType + "</td>" +
-									"</tr>");
+		// Update View
+		$("#addClient").removeClass("hideMe");
+		$("#cancelAdd").addClass("hideMe");
+		$(".newClientSlot").addClass("hideMe");
 		
 		$.ajax({
 			url: "http://localhost:7001/IMS/addClient.do",
@@ -489,10 +434,13 @@ $(document).ready(function(){
 								   passedAddressCity: inputAddressCity,
 								   passedAddressZip: inputAddressZip
 								}),
-			contentType: "application/json"
+			contentType: "application/json",
+			success: function(){
+					
+				alert("New client added. Welcome aboard!");
+				location.reload();
+			}
 		});
-		
-		isAdding = false;
 	});
 });
 </script>

@@ -37,9 +37,6 @@ public class SpringMVC {
 		
 		DataLayer layer = new DataLayer();
 		
-		// Set Current Path
-		req.getSession().setAttribute("path", "index.jsp");
-		
 		// Grab Po Lines
 		List<PoLine> lines = layer.grabLines();
 		req.getSession().setAttribute("lines", lines);
@@ -77,10 +74,12 @@ public class SpringMVC {
 		
 		try {
 				
-			resp.sendRedirect((String)(req.getSession().getAttribute("path")));
+			resp.sendRedirect("index.jsp");
 		} catch (IOException e) {e.printStackTrace();}
 	}
 	
+	//----------------------------------
+	// Ajax Calls (Dynamic Loading)
 	@RequestMapping(value="grabType.do", method=RequestMethod.GET)
 	@ResponseBody
 	public String sendClientType(HttpServletRequest req, HttpServletResponse resp, @RequestParam("clientName") String clientName){
@@ -97,6 +96,61 @@ public class SpringMVC {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="grabClient.do", method=RequestMethod.GET)
+	@ResponseBody
+	public Client sendClients(HttpServletRequest req, HttpServletResponse resp, @RequestParam("q") int _id){
+		
+		List<Client> clientList = ((List<Client>)req.getSession().getAttribute("clients"));
+		
+		Client client = null;
+		
+		for(int i = 0; i < clientList.size(); i++){
+			
+			if(clientList.get(i).getImsClientId() == _id){
+				
+				client = clientList.get(i);
+			}
+		}
+		
+		return client;
+	}
+	
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="grabClients.do", method=RequestMethod.GET)
+	@ResponseBody
+	public Client[] sendClients(HttpServletRequest req, HttpServletResponse resp){
+		
+		List<Client> clientList = ((List<Client>)req.getSession().getAttribute("clients"));
+		
+		Client[] clients = new Client[clientList.size()];
+		
+		for(int i = 0; i < clientList.size(); i++){
+			
+			clients[i] = clientList.get(i);
+		}
+		
+		return clients;
+	}
+	
+	@RequestMapping(value="grabProduct.do", method=RequestMethod.GET)
+	@ResponseBody
+	public Product sendProduct(HttpServletRequest req, HttpServletResponse resp, @RequestParam("productName") String productName){
+		
+		@SuppressWarnings("unchecked")
+		List<Product> myProducts = (List<Product>) req.getSession().getAttribute("products");
+		
+		for(Product p : myProducts){
+			if(p.getProductName().equals(productName)){
+				return p;
+			}
+		}
+		
+		return null;
+	}
+	
+	//----------------------------------
+	// Persistance Methods
 	@RequestMapping(value="addClient.do", method=RequestMethod.POST, consumes="application/json")
 	@ResponseBody
 	public void persistClient(HttpServletRequest req, HttpServletResponse resp, @RequestBody Client client){
@@ -135,6 +189,8 @@ public class SpringMVC {
 		
 		req.getSession().setAttribute("clients", newClients);
 	}
+	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value="updateClient.do", method=RequestMethod.POST, consumes="application/json")
 	@ResponseBody
 	public void updateClient(HttpServletRequest req, HttpServletResponse resp, @RequestBody Client client){
@@ -146,12 +202,21 @@ public class SpringMVC {
 		Criteria critera = session.createCriteria(Client.class).add(Restrictions.eq("imsClientId", client.getImsClientId()));
 		Client clientToChange = (Client)critera.uniqueResult();
 		
+		List<Client> myCurrentClients = (List<Client>)req.getSession().getAttribute("clients");
+		
+		for(int i = 0; i < myCurrentClients.size(); i++){
+			
+			if(myCurrentClients.get(i).getImsClientId() == clientToChange.getImsClientId()){
+				
+				myCurrentClients.remove(i);
+			}
+		}
+		
 		StateAbbrv newState = null;
 		
 		// if the client state does not match the one they passed, find it.
 		if(!(clientToChange.getClientAddress().getState().getStateName().equals(client.getPassedStateName()))){
-			
-			@SuppressWarnings("unchecked")
+		
 			List<StateAbbrv> states = (List<StateAbbrv>)req.getSession().getAttribute("states");
 			
 			for(StateAbbrv s : states){
@@ -171,7 +236,6 @@ public class SpringMVC {
 		// if the client type does not match the one they passed, find it.
 		if(!(clientToChange.getClientType().getClientType().equals(client.getPassedClientType()))){
 			
-			@SuppressWarnings("unchecked")
 			List<ClientType> types = (List<ClientType>)req.getSession().getAttribute("types");
 			
 			for(ClientType t : types){
@@ -206,8 +270,35 @@ public class SpringMVC {
 		
 		layer.changeRecord(clientToChange);
 		
-		// Unlock Data to Update Records 
-		req.getSession().setAttribute("gotData", false);
+		myCurrentClients.add(clientToChange);		
+		req.setAttribute("clients", myCurrentClients);
+	}
+	
+	@RequestMapping(value="deleteClient.do", method=RequestMethod.GET)
+	@ResponseBody
+	public void deleteClient(HttpServletRequest req, HttpServletResponse resp, @RequestParam("q") int id){
+		
+		DataLayer layer = new DataLayer();
+		Session session = (Session)layer.getSession();
+		
+		// Pull Client
+		Criteria criteria = session.createCriteria(Client.class).add(Restrictions.eq("imsClientId", id));
+		Client target = (Client)criteria.uniqueResult();
+		
+		@SuppressWarnings("unchecked")
+		List<Client> myCurrentClients = (List<Client>)req.getSession().getAttribute("clients");
+		
+		for(int i = 0; i < myCurrentClients.size(); i++){
+			
+			if(myCurrentClients.get(i).getImsClientId() == target.getImsClientId()){
+				
+				myCurrentClients.remove(i);
+			}
+		}
+		
+		req.setAttribute("clients", myCurrentClients);
+		
+		layer.removeRecord(target);
 	}
 	
 	//----------------------------------
@@ -215,7 +306,6 @@ public class SpringMVC {
 	@RequestMapping(value="home.do", method=RequestMethod.GET)
 	public void goHome(HttpServletRequest req, HttpServletResponse resp) {
 		
-		req.getSession().setAttribute("path", "index.jsp");
 		req.getSession().setAttribute("isReports", false);
 		
 		try {
@@ -229,7 +319,6 @@ public class SpringMVC {
 	public ModelAndView getInvoices(HttpServletRequest req) {
 		
 		ModelAndView mv = new ModelAndView("viewInvoice");
-		req.getSession().setAttribute("path", "/JSP/viewInvoice.jsp");
 		return mv;
 	}
 	
@@ -238,7 +327,6 @@ public class SpringMVC {
 	public ModelAndView getClients(HttpServletRequest req){
 		
 		ModelAndView mv = new ModelAndView("viewClients");
-		req.getSession().setAttribute("path", "/JSP/viewClients.jsp");
 		return mv;
 	}
 	
@@ -246,7 +334,6 @@ public class SpringMVC {
 	public ModelAndView getProducts(HttpServletRequest req){
 		
 		ModelAndView mv = new ModelAndView("viewProducts");
-		req.getSession().setAttribute("path", "/JSP/viewProducts.jsp");
 		return mv;
 	}
 	
@@ -254,7 +341,6 @@ public class SpringMVC {
 	public ModelAndView getReports(HttpServletRequest req) {
 		
 		ModelAndView mv = new ModelAndView("viewReports");
-		req.getSession().setAttribute("path", "/JSP/viewReports.jsp");
 		req.getSession().setAttribute("isReports", true);
 		return mv;
 	}
@@ -263,7 +349,6 @@ public class SpringMVC {
 	public ModelAndView getPastInvoices(HttpServletRequest req) {
 		
 		ModelAndView mv = new ModelAndView("historyReport");
-		req.getSession().setAttribute("path", "/JSP/historyReport.jsp");
 		req.getSession().setAttribute("isReports", true);
 		return mv;
 	}
