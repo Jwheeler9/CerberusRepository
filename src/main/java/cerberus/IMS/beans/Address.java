@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="IMS_ADDRESS")
+@org.hibernate.annotations.Entity(dynamicUpdate=true)
 public class Address {
 
 	//----------------------------------
